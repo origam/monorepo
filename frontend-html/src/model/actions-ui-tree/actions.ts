@@ -31,7 +31,7 @@ import { crs_fieldBlur_ActionClick } from "model/actions/actionSync";
 
 export default {
   onActionClick(ctx: any) {
-    return flow(function*onActionClick(event: any, action: IAction) {
+    return flow(function*onActionClick(event: any, action: IAction, beforeHandleError?: () => void) {
       try {
         yield*crs_fieldBlur_ActionClick.runGenerator(function*() {
           if (!action.isEnabled) {
@@ -58,6 +58,7 @@ export default {
           }
         });
       } catch (e) {
+        beforeHandleError?.();
         yield*handleError(ctx)(e);
         throw e;
       }

@@ -38,6 +38,7 @@ import { preventDoubleclickSelect } from "utils/mouse";
 import { RootError } from "RootError";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ArrayPrototypes } from "@origam/utils"
+import { registerPlugins } from "plugins/tools/PluginRegistration";
 
 if (import.meta.env.DEV) {
   axios.defaults.timeout = 3600000;
@@ -58,6 +59,7 @@ function disableAutoZoomingOnIPhone(){
 }
 
 async function main() {
+  await registerPlugins()
   disableAutoZoomingOnIPhone();
   preventDoubleclickSelect();
   const locationHash = window.location.hash;

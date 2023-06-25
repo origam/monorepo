@@ -20,7 +20,6 @@ along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 import { getDataView } from "model/selectors/DataView/getDataView";
 import { createScreenPluginData, createSectionPluginData } from "./PluginData";
 import React, { Fragment } from "react";
-import { registerPlugins } from "plugins/tools/PluginRegistration";
 import { Localizer } from "plugins/tools/Localizer";
 import { ILocalization, IPlugin, isIScreenPlugin, isISectionPlugin } from "@origam/plugins";
 import { Observer } from "mobx-react";
@@ -31,8 +30,6 @@ const pluginFactoryFunctions: Map<string, () => IPlugin> = new Map<string, () =>
 export function registerPlugin(pluginName: string, factoryFunction: () => IPlugin) {
   pluginFactoryFunctions.set(pluginName, factoryFunction)
 }
-
-registerPlugins();
 
 export class PluginLibrary {
   pluginInstances: Map<string, IPlugin> = new Map<string, IPlugin>();

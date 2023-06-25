@@ -151,6 +151,8 @@ export interface IDataView extends IDataViewData {
 
   setSelectedRowId(id: string | undefined): void;
 
+  focusFormViewControl(fieldId: string): void;
+
   setRecords(rows: any[][]): Promise<any>;
 
   appendRecords(rows: any[][]): void;

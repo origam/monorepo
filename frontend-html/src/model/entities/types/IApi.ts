@@ -381,6 +381,7 @@ export interface IApi {
   }): Promise<any>;
 
   getBlob(data: { downloadToken: string }): Promise<any>;
+  getBlobUrl(data: { downloadToken: string }): string;
 
   getUploadToken(data: {
     SessionFormIdentifier: string;

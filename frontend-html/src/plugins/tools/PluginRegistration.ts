@@ -17,14 +17,23 @@ You should have received a copy of the GNU General Public License
 along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
 import { registerPlugin } from "plugins/tools/PluginLibrary";
 import { AuditPlugin } from "@origam/plugin-audit";
-import { FilterPlugin  } from "@origam/plugin-filter";
-import { RadarChartPlugin  } from "@origam/plugin-chart";
+import { FilterPlugin } from "@origam/plugin-filter";
+import { RadarChartPlugin } from "@origam/plugin-chart";
 
-export function registerPlugins() {
+export async function registerPlugins() {
   registerPlugin("FilterPlugin", () => new FilterPlugin());
   registerPlugin("AuditPlugin", () => new AuditPlugin());
   registerPlugin("RadarChartPlugin", () => new RadarChartPlugin());
+
+  await autoimportPlugins();
+} 
+
+async function autoimportPlugins() {
+  const imports = import.meta.glob('/src/plugins/autoimport/*/bootstrap.tsx')
+  for(let loadPluginModule of Object.values(imports)) {
+    const pluginModule: any = await loadPluginModule()
+    await pluginModule.bootstrap();
+  }
 }
