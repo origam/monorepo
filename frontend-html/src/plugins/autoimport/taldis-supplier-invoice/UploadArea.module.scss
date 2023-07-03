@@ -1,0 +1,68 @@
+.UploadArea {
+  
+  width: 100%;
+  height: 100%;
+  border: 2px dashed #d8d8d8;
+  color: #d8d8d8;
+  position: relative;
+  container-type: size;
+  cursor: pointer;
+  user-select: none;
+  &__message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: min(50px, 7cqw);
+    white-space: nowrap;
+    text-align: center;
+    i {
+      display: block;
+      font-size: min(150px, 40cqw, 30cqh);
+      text-align: center;
+      margin-bottom: 0.4em;
+    }
+    @container (height < 130px) or (width < 100px) {
+      i {
+        display: none;
+      }
+    }
+  }
+  &__hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: min(20px, 5cqw);
+    white-space: nowrap;
+    color: #969696;
+    text-align: center;
+    i {
+      display: block;
+      font-size: min(150px, 30cqw, 20cqh);
+      text-align: center;
+      margin-bottom: 0.4em;
+    }
+    @container (height < 130px) or (width < 100px) {
+      i {
+        display: none;
+      }
+    }
+  }
+  &__upload {
+    display: none;
+  }
+}
+
+.PDFViewer {
+  width: 100%;
+  height: 100%;
+}
+
+.UploadAreaWrapper {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+}
+
