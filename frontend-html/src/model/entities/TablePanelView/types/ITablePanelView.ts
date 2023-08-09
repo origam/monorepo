@@ -78,6 +78,24 @@ export interface ITablePanelView extends ITablePanelViewData {
 
   onNoCellClick(): Generator;
 
+  onSelectionCellMouseMove(event: any, row: any[], rowId: any): Generator;
+
+  onSelectionCellClick(event: any, row: any[], rowId: any): Generator;
+
+  selectionRangeIndex0: number | undefined;
+  selectionRangeIndex1: number | undefined;
+  shiftPressed: boolean;
+  selectionTargetState: boolean;
+  selectionInProgress: boolean;
+
+  onWindowMouseMove(event: any): Generator;
+
+  onWindowKeyDown(event: any): Generator;
+
+  onWindowKeyUp(event: any): Generator;
+
+  selectionCellHoveredId: any;
+
   onOutsideTableClick(): Generator;
 
   dontHandleNextScroll(): void;
@@ -114,6 +132,8 @@ export interface ITablePanelView extends ITablePanelViewData {
   getCellRectangle(rowIndex: number, columnIndex: number): ICellRectangle | undefined;
 
   setCellRectangle(rowId: number, columnId: number, rectangle: ICellRectangle): void;
+
+  handleEditorKeyDown(event: any): void;
 
   clearCurrentCellEditData(): void;
 

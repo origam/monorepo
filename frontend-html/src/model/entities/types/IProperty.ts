@@ -43,6 +43,7 @@ export interface IPropertyData {
   column: IPropertyColumn;
   dock?: IDockType;
   multiline: boolean;
+  isAllowTab?: boolean;
   alwaysHidden: boolean;
   isPassword: boolean;
   isRichText: boolean;

@@ -134,6 +134,7 @@ export class FormViewEditor extends React.Component<{
             value={this.props.value}
             isReadOnly={readOnly}
             isMultiline={this.props.property!.multiline}
+            isAllowTab={this.props.property!.isAllowTab}
             isPassword={this.props.property!.isPassword}
             customStyle={this.props.property?.style}
             maxLength={this.props.property?.maxLength}

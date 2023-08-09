@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<x:file xmlns:x="http://schemas.origam.com/model-persistence/1.0.0" xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0" xmlns:ci="http://schemas.origam.com/Origam.Schema.GuiModel.ControlItem/6.0.0" xmlns:sia="http://schemas.origam.com/Origam.Schema.SchemaItemAncestor/6.0.0">
+<x:file
+  xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
+  xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
+  xmlns:ci="http://schemas.origam.com/Origam.Schema.GuiModel.ControlItem/6.0.0"
+  xmlns:sia="http://schemas.origam.com/Origam.Schema.SchemaItemAncestor/6.0.0">
   <ci:Control
     asi:abstract="false"
     x:id="e25c335c-6a65-49ff-9f0e-562b4ad27306"

@@ -39,6 +39,7 @@ export class TextEditor extends React.Component<{
   id?: string;
   value: string | null;
   isMultiline?: boolean;
+  isAllowTab?: boolean;
   isReadOnly: boolean;
   isPassword?: boolean;
   backgroundColor?: string;
@@ -113,6 +114,23 @@ export class TextEditor extends React.Component<{
       }
       this.elmInput.scrollLeft = 0;
     }
+  }
+
+  @action.bound
+  handleKeyDown(event: any) {
+    if(this.props.isAllowTab && event.key === 'Tab') {
+      event.preventDefault();
+      const {selectionStart, selectionEnd} = this.elmInput;
+      const value = this.props.value || '';
+      const newValue = value.substring(0, selectionStart) + '\t' + value.substring(selectionEnd);
+      this.elmInput.value = newValue;
+      const newCursorPosition = selectionStart + 1;
+      this.elmInput.selectionStart = newCursorPosition;
+      this.elmInput.selectionEnd = newCursorPosition;
+      this.props.onChange?.(null, newValue);
+      return 
+    }
+    this.props.onKeyDown?.(event)
   }
 
   elmInput: any = null;
@@ -216,7 +234,7 @@ export class TextEditor extends React.Component<{
             this.updateTextOverflowState();
           }
           }
-          onKeyDown={this.props.onKeyDown}
+          onKeyDown={this.handleKeyDown}
           onClick={this.props.onClick}
           onDoubleClick={this.props.onDoubleClick}
           onBlur={this.props.onEditorBlur}
@@ -275,7 +293,7 @@ export class TextEditor extends React.Component<{
             this.currentValue = event.target.value;
             this.props.onChange && this.props.onChange(event, event.target.value);
           }}
-          onKeyDown={this.props.onKeyDown}
+          onKeyDown={this.handleKeyDown}
           onDoubleClick={this.props.onDoubleClick}
           onClick={this.props.onClick}
           onBlur={this.props.onEditorBlur}

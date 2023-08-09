@@ -1521,6 +1521,7 @@ namespace Origam.OrigamEngine.ModelXmlBuilders
 					bool isPassword = false;
 					string gridColumnWidth = null;
 					bool isRichText = false;
+					bool allowTab = false;
 					bool hideOnForm = false;
 					Guid styleId = Guid.Empty;
 					UIStyle style = null;
@@ -1561,6 +1562,7 @@ namespace Origam.OrigamEngine.ModelXmlBuilders
 							case "IsPassword":			isPassword = property.BoolValue;										break;
 							case "GridColumnWidth":		gridColumnWidth = property.IntValue.ToString();							break;
 							case "IsRichText":			isRichText = property.BoolValue;										break;
+							case "AllowTab":			allowTab = property.BoolValue;											break;
 							case "HideOnForm":			hideOnForm = property.BoolValue;										break;
 							case "StyleId":				styleId = property.GuidValue;											break;
 							case "Format":
@@ -1729,6 +1731,7 @@ namespace Origam.OrigamEngine.ModelXmlBuilders
 								buildDefinition.Multiline = multiline;
 								buildDefinition.IsPassword = isPassword;
 								buildDefinition.IsRichText = isRichText;
+								buildDefinition.AllowTab = allowTab;
 								buildDefinition.MaxLength = table.Columns[bindingMember].MaxLength;
                                 buildDefinition.CustomNumberFormat = customNumericFormat;
 								TextBoxBuilder.Build(propertyElement, buildDefinition);

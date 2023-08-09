@@ -18,27 +18,26 @@ along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
 import React from "react";
-import S from './VBox.module.scss';
+import cx from 'classnames';
+import S from './HBoxVBox.module.scss';
 
 export class VBox extends React.Component<{
-  height?: number
+  width?: number;
+  height?: number;
 }> {
   getVBoxStyle() {
-    if (this.props.height !== undefined) {
-      return {
-        flexShrink: 0,
-        height: this.props.height
-      };
-    } else {
-      return {
-        flexGrow: 1
-      };
+    return {
+      width: this.props.width,
+      height: this.props.height
     }
   }
 
   render() {
     return (
-      <div className={S.vBox} style={this.getVBoxStyle()}>
+      <div className={cx(S.vBox, {
+        [S.noWidth]: !this.props.width, 
+        [S.noHeight]: !this.props.height
+      })} style={this.getVBoxStyle()}>
         {this.props.children}
       </div>
     );

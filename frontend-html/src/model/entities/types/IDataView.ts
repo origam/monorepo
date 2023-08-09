@@ -161,6 +161,8 @@ export interface IDataView extends IDataViewData {
 
   deleteRowAndSelectNext(row: any[]): void;
 
+  getRowIndexById(rowId: any): number | undefined;
+
   clear(): void;
 
   navigateLookupLink(property: IProperty, row: any[]): Generator<any>;

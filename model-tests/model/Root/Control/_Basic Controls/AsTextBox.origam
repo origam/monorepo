@@ -3,7 +3,7 @@
   xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
   xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
   xmlns:ci="http://schemas.origam.com/Origam.Schema.GuiModel.ControlItem/6.0.0"
-  xmlns:cpi="http://schemas.origam.com/Origam.Schema.GuiModel.ControlPropertyItem/6.0.0"
+  xmlns:cpi1="http://schemas.origam.com/Origam.Schema.GuiModel.ControlPropertyItem/6.0.0"
   xmlns:csp="http://schemas.origam.com/Origam.Schema.GuiModel.ControlStyleProperty/6.0.0">
   <ci:Control
     asi:abstract="false"
@@ -14,139 +14,146 @@
     ci:requestSaveAfterChangeAllowed="true"
     ci:toolboxVisibility="PanelDesigner"
     ci:typeName="Origam.Gui.Win.AsTextBox">
-    <cpi:ControlPropertyItem
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="02a5fdbd-f29d-408e-ac4a-0ef7e7be7a40"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="StyleId"
-      cpi:propertyType="UniqueIdentifier" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="UniqueIdentifier" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="0a68bbf8-dc94-415f-baba-768e947f19e8"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="CaptionLength"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="16162dee-452f-4290-b8d5-753b89647f48"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="GridColumnWidth"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="1713bfc4-d991-4c6d-a26e-93bd8ef8046b"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="CustomNumericFormat"
-      cpi:propertyType="String" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="String" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
+      x:id="1cfe8847-15cd-4bc6-80a5-481107a5b61f"
+      cpi1:localizable="false"
+      asi:name="AllowTab"
+      cpi1:propertyType="Boolean" />
+    <cpi1:ControlPropertyItem
+      asi:abstract="false"
+      cpi1:bindOnly="false"
       x:id="2240ad59-99a5-4429-89e6-94a3d9fd62b8"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="ReadOnly"
-      cpi:propertyType="Boolean" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Boolean" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="24326c8e-8fa1-40f5-9e52-ba02e755127c"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Dock"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="2b6c0455-a35e-4eef-9eaa-740f66732087"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="CaptionPosition"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="2feb3117-3bcd-4779-baa8-ef742e1eb108"
-      cpi:localizable="true"
+      cpi1:localizable="true"
       asi:name="GridColumnCaption"
-      cpi:propertyType="String" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="String" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="340fed3d-87c0-4c4b-a474-d28ebe2a7a14"
-      cpi:localizable="true"
+      cpi1:localizable="true"
       asi:name="Caption"
-      cpi:propertyType="String" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="String" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="47cd5ccd-1e49-40d0-bc82-ac6c98fee39f"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="TabIndex"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="5ec12c37-3a98-4d95-ac90-9a3045969728"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="HideOnForm"
-      cpi:propertyType="Boolean" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Boolean" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="6a6e791e-0854-4779-9150-e70725b5d279"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="IsRichText"
-      cpi:propertyType="Boolean" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Boolean" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="729b0402-6d81-47bc-936a-c26328136607"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Left"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="bf2e55d0-5859-4b26-9e82-f187a61f53f7"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Top"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="c2abd09e-17b2-4a60-9a62-c28078dc632a"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Multiline"
-      cpi:propertyType="Boolean" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Boolean" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="c84ec964-046e-4a30-8941-a4eb234a2303"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Height"
-      cpi:propertyType="Integer" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Integer" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="d943815e-c6df-4236-99e8-566aaf4acc20"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="IsPassword"
-      cpi:propertyType="Boolean" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="Boolean" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="e4c1751b-7b33-42d3-b945-11971cdf7c56"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Value"
-      cpi:propertyType="String" />
-    <cpi:ControlPropertyItem
+      cpi1:propertyType="String" />
+    <cpi1:ControlPropertyItem
       asi:abstract="false"
-      cpi:bindOnly="false"
+      cpi1:bindOnly="false"
       x:id="f40ac6ea-026c-4e8d-89e7-a13db97bd37c"
-      cpi:localizable="false"
+      cpi1:localizable="false"
       asi:name="Width"
-      cpi:propertyType="Integer" />
+      cpi1:propertyType="Integer" />
     <csp:ControlStyleProperty
       asi:abstract="false"
       x:id="394cb463-7104-4ec5-b165-3a31342f45d5"

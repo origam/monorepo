@@ -19,6 +19,7 @@ along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 
 import { createMachine, interpret } from "xstate";
 import { IUpdateData } from "../types/IApi";
+import _ from "lodash";
 
 
 interface IUpdateObjectData {
@@ -61,6 +62,7 @@ export class UpdateRequestAggregator {
   interpreter = interpret(
     createMachine(
       {
+        /** @xstate-layout N4IgpgJg5mDOIC5QFcAOECGAXMB5ARgFZgDGWAdAJIAiAMgKIDEAqgArUCCAKvQPoBK9AIrN6AZR7UA2gAYAuolCoA9rACWWNcoB2ikAA9EATgAsJ8gFYA7CaMyZARgBMRi06sA2ADQgAnogAOCwBmcgCPIyMPAKjgmSsAhwBfJJ80TBwCYjJyNk4eXmp6ACFcZgA5AGFKcoBxFnZuPkERcUlZBSQQFXVNHT1DBABaB2CHcmDojxMHDysrVytggJ9-BFMjSydHCwcLDwsggICUtPRsPCJSCjymwpKyqpr6-VgsC-IMADMcACcACgcVhkAEpGOkLllrrlGgUiqUKtU6h09D0NFpdF1Bk5gqF9nNgsCPNEnKNvH5jNFyEZgqYHCYnKSrM5TiAIZkrjkiq1RIwUV00X1MaBBkNjuQFpEAvMjC5olYLKtEAcrNTIlFTAEnAyHEZWezLtkbrDnowIDowOQ3h8DVCcrcuM9+UpVOj+ljEDMLBN7LNiUyPITyWs5h5yMT1TiLDIDlF9ecOUaYflTebtJbrThyLbOcaU8iHJ0Xb0MQNEFZSRL7PYFnFgtZFRSEKHw8CZCZwh54o4PPGMoboQ7TQ7msJRBJ6NJ5KjXUKywg4psTGMxhYLEYbLjtUrhvSwgFfV2Zg524yrH3Ibnk9xnuQOKxKAIKuVUxbyGptAA3ZQAa0tOaTIc6jvB8n3KF86gQD9vxIbAMQ6Z1ulnUsPQXdtyHpQlowjGR1yMHdtVVDxthkKIZkcIwDycC9E0HE1gPvR9+GfU0wF+X5lF+chUAAG2wL5OIAW2zBMB3tejahApiWMg6DlFgoUEOnAVkPdEVEHcTZSScddiPXZYTHbHcTEDcNdUo5kTDXYFtRSVIQG0ZQIDgPQAOuGcSzUgxEBGBYJimGY5gWaxlh3EYZCcCYDx7dsHBPBlghosSKBoBgPLdYVvIQE9SImGwaXsZc10DHc5m9IFq2CbUsJxJK7TzO54UeJFanSudULXMJqw7LVEh0nd4u9Dcdko6MHACXE6qvblRFENqUPUhdpXIGZCNcRI4tcHcglCFxbFpaZmXPey3PE-NWpUzzMuxfCmzi0JnBrbVnH2TwpsAiSpLAiCLuLDL53mHdV2pNtcIOaUDl7E7RPq69HQY0DBDEXBaAANUneavMGaNVTXX1GWWCIFSB+wVrbOIYx00Z3ro86vsEAApehKkkTHrsQHHLGjRwCfCDdGzWQyAhWiJKPG3FYpMuykiAA */
         predictableActionArguments: true,
         id: "updateObject",
         initial: "IDLE",
@@ -155,7 +157,12 @@ export class UpdateRequestAggregator {
     {devTools: true}
   );
 
-  enqueue(data: IUpdateObjectData): Promise<any> {
+  enqueue(data: IUpdateObjectData): Promise<any | null> {
+    this.removeCurrentlyProcessedValues(data);
+    if (data.UpdateData.length === 0) {
+      return Promise.resolve(null);
+    }
+
     this.interpreter.send({
       type: "UPDATE_REQUESTED",
       payload: data,
@@ -163,6 +170,38 @@ export class UpdateRequestAggregator {
     const {itemJustEnqueued} = this;
     this.itemJustEnqueued = undefined;
     return itemJustEnqueued!.promise;
+  }
+
+  private removeCurrentlyProcessedValues(newData: IUpdateObjectData) {
+    if (
+      !this.currentRequest ||
+      this.currentRequest.Entity !== newData.Entity
+    ) {
+      return;
+    }
+    for (const newUpdateData of Array.from(newData.UpdateData)) {
+      for (const updateDataInProgress of this.currentRequest.UpdateData) {
+        if (updateDataInProgress.RowId === newUpdateData.RowId) {
+          this.removeDuplicateProperties({
+            removeFrom: newUpdateData,
+            source: updateDataInProgress});
+          if (Object.keys(newUpdateData.Values).length === 0) {
+            newData.UpdateData.remove(newUpdateData);
+          }
+        }
+      }
+    }
+  }
+
+  private removeDuplicateProperties(args: {removeFrom: IUpdateData, source: IUpdateData}) {
+    for (const processedColumn of Object.keys(args.source.Values)) {
+      for (const newColumn of Object.keys(args.removeFrom.Values)) {
+        if (processedColumn === newColumn &&
+          _.isEqual(args.source.Values[processedColumn], args.removeFrom.Values[newColumn])) {
+          delete args.removeFrom.Values[newColumn];
+        }
+      }
+    }
   }
 
   mergeToQueue(data: IUpdateObjectData) {

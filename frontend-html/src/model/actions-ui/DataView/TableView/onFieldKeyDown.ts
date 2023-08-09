@@ -40,6 +40,7 @@ export function onFieldKeyDown(ctx: any) {
     try {
       const dataView = getDataView(ctx);
       const tablePanelView = getTablePanelView(ctx);
+      tablePanelView.handleEditorKeyDown(event);
       switch (event.key) {
         case "Tab": {
           if (isGoingToChangeRow(event)) {

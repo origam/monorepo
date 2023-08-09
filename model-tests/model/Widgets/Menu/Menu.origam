@@ -479,6 +479,16 @@
           frmi:sortSet="Widgets/DataStructure/Widgets/WidgetSectionTest.origam#WidgetSectionTest/Sort/3c970576-154c-4309-b989-1107f7444f58" />
       </s2:MenuItem>
     </s2:MenuItem>
+    <wrmi:MenuItem
+      asi:abstract="false"
+      ami:alwaysOpenNew="false"
+      ami:displayName="Selection Member test"
+      x:id="0baa907d-1a73-44d4-9c46-ef5baa6cd9ce"
+      asi:name="SelectionMemberTest"
+      ami:openExclusively="false"
+      ami:order="100"
+      ami:roles="*"
+      wrmi:workflow="Widgets/Workflow/Widgets/SelectionMemberTest.origam#SelectionMemberTest/3466b33a-5054-436a-8815-92cc5213e741" />
   </s2:MenuItem>
   <s2:MenuItem
     asi:abstract="false"

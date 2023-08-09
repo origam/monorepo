@@ -55,6 +55,8 @@ namespace Origam.OrigamEngine.ModelXmlBuilders
 					XmlConvert.ToString(buildDefinition.IsPassword));
 				propertyElement.SetAttribute("IsRichText", 
 					XmlConvert.ToString(buildDefinition.IsRichText));
+				propertyElement.SetAttribute("AllowTab",
+					XmlConvert.ToString(buildDefinition.AllowTab));
 				propertyElement.SetAttribute("MaxLength", 
 					XmlConvert.ToString(buildDefinition.MaxLength));
 			}
@@ -100,6 +102,14 @@ namespace Origam.OrigamEngine.ModelXmlBuilders
 		{
 			get { return _IsRichText; }
 			set { _IsRichText = value; }
+		}
+
+		private bool _AllowTab;
+
+		public bool AllowTab
+		{ 
+			get { return _AllowTab; }
+			set { _AllowTab = value; }
 		}
 
 		private int _MaxLength = 0;

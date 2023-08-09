@@ -30,7 +30,7 @@ export interface IFilterConfiguration extends IFilterConfigurationData {
   isFilterControlsDisplayed: boolean;
   activeFilters: IFilter[];
 
-  filteringFunction(ignorePropertyId?: string): (row: any[]) => boolean;
+  filteringFunction(ignorePropertyId?: string): (row: any[], forceRowId?: string) => boolean;
 
   registerFilteringOnOffHandler(handler: (filteringOn: boolean) => void): void;
 

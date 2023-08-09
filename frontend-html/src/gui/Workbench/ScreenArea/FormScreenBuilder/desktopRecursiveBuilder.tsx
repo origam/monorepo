@@ -132,6 +132,7 @@ export function desktopRecursiveBuilder(formScreen: IFormScreen, xso: any) {
         return (
           <VBox
             key={xso.$iid}
+            width={xso.attributes.Width ? parseInt(xso.attributes.Width, 10) : undefined}
             height={xso.attributes.Height ? parseInt(xso.attributes.Height, 10) : undefined}
           >
             {findUIChildren(xso).map((child) => run(child))}
@@ -142,6 +143,7 @@ export function desktopRecursiveBuilder(formScreen: IFormScreen, xso: any) {
           <HBox
             key={xso.$iid}
             width={xso.attributes.Width ? parseInt(xso.attributes.Width, 10) : undefined}
+            height={xso.attributes.Height ? parseInt(xso.attributes.Height, 10) : undefined}
           >
             {findUIChildren(xso).map((child) => run(child))}
           </HBox>

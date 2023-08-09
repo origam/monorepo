@@ -214,8 +214,8 @@ export class DropdownEditorBehavior implements IDropdownEditorBehavior{
         break;
       case "Enter":
         const wasDropped = this.isDropped;
-        if (this.isDropped && !this.isWorking && this.cursorRowId) {
-          this.data.chooseNewValue(this.cursorRowId);
+        if (this.isDropped && !this.isWorking) {
+          this.data.chooseNewValue(this.cursorRowId === "" ? null : this.cursorRowId);
           this.dropUp();
         }
         if (wasDropped) {
@@ -228,7 +228,7 @@ export class DropdownEditorBehavior implements IDropdownEditorBehavior{
       case "Tab":
         if (this.isDropped) {
           if (this.cursorRowId) {
-            this.data.chooseNewValue(this.cursorRowId);
+            this.data.chooseNewValue(this.cursorRowId === "" ? null : this.cursorRowId);
           }
         }
         break;
@@ -393,6 +393,8 @@ export class DropdownEditorBehavior implements IDropdownEditorBehavior{
   private trySelectFirstRow() {
     if (this.dataTable.rows.length > 0) {
       this.cursorRowId = this.dataTable.getRowIdentifierByIndex(0);
+    } else {
+      this.cursorRowId = "";
     }
   }
 

@@ -125,7 +125,7 @@ export class ListRowContainer implements IRowsContainer {
         yield*self.preloadLookups();
         let rows = self.allRows;
         if (self.filterConfiguration.filteringFunction()) {
-          rows = rows.filter((row) => self.filterConfiguration.filteringFunction()(row));
+          rows = rows.filter((row) => self.filterConfiguration.filteringFunction()(row, self.forcedLastRowId));
         }
         if (self.orderingConfiguration.orderings.length !== 0) {
           rows = rows.sort((row1: any[], row2: any[]) => self.internalRowOrderingFunc(row1, row2));

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:file
+  xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
+  xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
+  xmlns:aws="http://schemas.origam.com/Origam.Schema.WorkflowModel.AbstractWorkflowStep/6.0.1"
+  xmlns:cs="http://schemas.origam.com/Origam.Schema.WorkflowModel.ContextStore/6.0.0"
+  xmlns:dsr="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructureReference/6.0.0"
+  xmlns:smcp="http://schemas.origam.com/Origam.Schema.WorkflowModel.ServiceMethodCallParameter/6.0.0"
+  xmlns:smct="http://schemas.origam.com/Origam.Schema.WorkflowModel.ServiceMethodCallTask/6.0.0"
+  xmlns:uift="http://schemas.origam.com/Origam.Schema.WorkflowModel.UIFormTask/6.0.0"
+  xmlns:w="http://schemas.origam.com/Origam.Schema.WorkflowModel.Workflow/6.0.1"
+  xmlns:wt="http://schemas.origam.com/Origam.Schema.WorkflowModel.WorkflowTask/6.0.0"
+  xmlns:wtd="http://schemas.origam.com/Origam.Schema.WorkflowModel.WorkflowTaskDependency/6.0.0">
+  <w:Workflow
+    asi:abstract="false"
+    x:id="3466b33a-5054-436a-8815-92cc5213e741"
+    asi:name="SelectionMemberTest"
+    w:transactionBehavior="InheritExisting">
+    <cs:ContextStore
+      asi:abstract="false"
+      cs:dataType="Xml"
+      cs:disableConstraints="false"
+      x:id="f5857a9b-0686-4404-917d-b01a369a2e86"
+      cs:isReturnValue="false"
+      asi:name="AllDataTypes"
+      cs:structure="Widgets/DataStructure/Widgets/AllDataTypes.origam#AllDataTypes/31791c3b-7265-439e-ac96-ddd57aa82579" />
+    <smct:WorkflowTask
+      asi:abstract="false"
+      x:id="09023034-94c8-4f57-9fc0-03352c013401"
+      asi:name="01_LoadData_AllDataTypes"
+      wt:outputContextStore="Widgets/Workflow/Widgets/SelectionMemberTest.origam#SelectionMemberTest/AllDataTypes/f5857a9b-0686-4404-917d-b01a369a2e86"
+      wt:outputMethod="AppendMergeExisting"
+      aws:roles="*"
+      smct:service="Root/Service/DataService.origam#DataService/bbd7bd32-d40b-441a-bb5b-0b0fa89169d4"
+      smct:serviceMethod="Root/Service/DataService.origam#DataService/LoadData/93a3ced9-fafd-4f38-9467-3af1f72b5d62">
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="6833b446-c557-4dcf-9e8b-0f90636c9de5"
+        asi:name="DataStructure"
+        smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/LoadData/DataStructure/12495b9d-f2b9-4b70-b14c-7cb67784c9f3">
+        <dsr:DataStructureReference
+          asi:abstract="false"
+          dsr:dataStructure="Widgets/DataStructure/Widgets/AllDataTypes.origam#AllDataTypes/31791c3b-7265-439e-ac96-ddd57aa82579"
+          x:id="e236652d-39b9-40e8-8a31-0771baa71a10"
+          asi:name="AllDataTypes" />
+      </smcp:ServiceMethodCallParameter>
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="9d75c1f6-4ce0-493f-a1e0-4bca415bfa8d"
+        asi:name="Parameters"
+        smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/LoadData/Parameters/ff27a2ff-5965-4eed-b6dd-9cd040583d03" />
+    </smct:WorkflowTask>
+    <uift:WorkflowTask
+      asi:abstract="false"
+      uift:allowSave="false"
+      uift:autoNext="false"
+      x:id="55e4d3ed-1001-4726-aaf1-3c92b411780d"
+      uift:isFinalForm="false"
+      uift:isRefreshSuppressedBeforeFirstSave="true"
+      asi:name="02_ShowUI_Select"
+      wt:outputContextStore="Widgets/Workflow/Widgets/SelectionMemberTest.origam#SelectionMemberTest/AllDataTypes/f5857a9b-0686-4404-917d-b01a369a2e86"
+      wt:outputMethod="FullMerge"
+      uift:refreshPortalAfterSave="False"
+      aws:roles="*"
+      uift:screen="Widgets/FormControlSet/Widgets/AllDataType_SelectionMemberTest.origam#AllDataType_SelectionMemberTest/1df28f34-586c-42e9-9b2e-d0883d16b848">
+      <wtd:WorkflowTaskDependency
+        asi:abstract="false"
+        x:id="633b1217-c152-4eb2-93f5-f360bfae25bf"
+        asi:name="After_01_LoadData_AllDataTypes"
+        wtd:startEvent="Success"
+        wtd:task="Widgets/Workflow/Widgets/SelectionMemberTest.origam#SelectionMemberTest/01_LoadData_AllDataTypes/09023034-94c8-4f57-9fc0-03352c013401" />
+    </uift:WorkflowTask>
+  </w:Workflow>
+</x:file>

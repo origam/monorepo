@@ -518,6 +518,14 @@ namespace Origam.Server
             XmlDocument formXml = OrigamEngine.ModelXmlBuilders.FormXmlBuilder.GetXml(new Guid(this.Request.ObjectId)).Document;
             XmlNodeList list = formXml.SelectNodes("/Window");
             XmlElement windowElement = list[0] as XmlElement;
+            // The SuppressSave attribute causes the Save button to disappear.
+            // It should not be set to true if there is at least one editable field on the screen. The final result can be
+            // determined only after the whole screen xml has been created.
+            if (windowElement.GetAttribute("SuppressSave") == "true" && 
+                formXml.SelectNodes("//Property[@ReadOnly='false']")?.Count > 0)
+            {
+                windowElement.SetAttribute("SuppressSave", "false");
+            }
             if (windowElement.GetAttribute("SuppressSave") == "true")
             {
                 this.SuppressSave = true;

@@ -19,7 +19,7 @@ along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import bind from "bind-decorator";
-import { action, computed, observable } from "mobx";
+import { action, computed, flow, observable } from "mobx";
 import { inject, observer, Provider } from "mobx-react";
 import { onTableKeyDown } from "model/actions-ui/DataView/TableView/onTableKeyDown";
 import React, { useContext } from "react";
@@ -102,6 +102,40 @@ export class TableViewInner extends React.Component<ITableViewProps & { dataView
         tablePanelView.triggerOnFocusTable();
       }
     }
+
+    window.addEventListener('mousemove', this.handleWindowMouseMove);
+    window.addEventListener('keydown', this.handleWindowKeyDown);
+    window.addEventListener('keyup', this.handleWindowKeyUp);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.handleWindowMouseMove);
+    window.removeEventListener('keydown', this.handleWindowKeyDown);
+    window.removeEventListener('keyup', this.handleWindowKeyUp);
+  }
+
+  @action.bound handleWindowMouseMove(event: any) {
+    const thisInstance = this;
+    flow(function* () {
+      if(thisInstance.props.tablePanelView)
+        yield* thisInstance.props.tablePanelView.onWindowMouseMove(event)
+    })();
+  }
+
+  @action.bound handleWindowKeyDown(event: any) {
+    const thisInstance = this;
+    flow(function* () {
+      if(thisInstance.props.tablePanelView)
+        yield* thisInstance.props.tablePanelView.onWindowKeyDown(event)
+    })();
+  }
+
+  @action.bound handleWindowKeyUp(event: any) {
+    const thisInstance = this;
+    flow(function* () {
+      if(thisInstance.props.tablePanelView)
+        yield* thisInstance.props.tablePanelView.onWindowKeyUp(event)
+    })();
   }
 
   refTableDisposer: any;

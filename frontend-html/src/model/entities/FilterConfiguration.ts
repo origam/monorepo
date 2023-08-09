@@ -88,8 +88,8 @@ export class FilterConfiguration implements IFilterConfiguration {
     }
   }
 
-  filteringFunction(ignorePropertyId?: string): (row: any[]) => boolean {
-    return (row: any[]) => {
+  filteringFunction(ignorePropertyId?: string): (row: any[], forceRowId?: string) => boolean {
+    return (row: any[], forceRowId?: string) => {
       const dataTable = getDataTable(this);
       const dirtyValues = dataTable.getDirtyValues(row);
       if (dirtyValues.size > 0){
@@ -97,6 +97,9 @@ export class FilterConfiguration implements IFilterConfiguration {
       }
       if (!this.isPresentInDetail(row)) {
         return false;
+      }
+      if(forceRowId && dataTable.getRowId(row) === forceRowId){
+        return true;
       }
       for (let term of this.implicitFilters) {
         if ((!ignorePropertyId || ignorePropertyId !== term.propertyId) &&

@@ -139,6 +139,7 @@ function parseProperty(node: any, idx: number): IProperty {
     parameters: getPropertyParameters(node),
     dock: node.attributes.Dock,
     multiline: node.attributes.Multiline === "true",
+    isAllowTab: node.attributes.AllowTab === "true",
     isPassword: node.attributes.IsPassword === "true",
     isRichText: node.attributes.IsRichText === "true",
     autoSort: node.attributes.AutoSort === "true",

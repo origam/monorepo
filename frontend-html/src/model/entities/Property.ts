@@ -56,6 +56,7 @@ export class Property implements IProperty {
   column: IPropertyColumn = IPropertyColumn.Text;
   dock?: IDockType | undefined;
   multiline: boolean = false;
+  isAllowTab: boolean = false;
   isPassword: boolean = false;
   isRichText: boolean = false;
   maxLength: number = 0;

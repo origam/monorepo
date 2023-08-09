@@ -191,6 +191,9 @@ namespace Origam.Gui.Win
 	    [DefaultValue(false)]
 		public bool IsRichText { get; set; } = false;
 
+		[DefaultValue(false)]
+		public bool AllowTab { get; set; } = false;
+
 	    [Browsable(false)]
 		public Guid StyleId { get; set; }
 

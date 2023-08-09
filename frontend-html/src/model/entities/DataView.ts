@@ -333,16 +333,20 @@ export class DataView implements IDataView {
     }
   }
 
-  @computed get selectedRowIndex(): number | undefined {
+  getRowIndexById(rowId: any) {
     if (getGroupingConfiguration(this).isGrouping) {
       return getGrouper(this).allGroups.some((group) => group.isExpanded)
-        ? getGrouper(this).getRowIndex(this.selectedRowId!)
+        ? getGrouper(this).getRowIndex(rowId)
         : undefined;
     } else {
-      return this.selectedRowId
-        ? this.dataTable.getExistingRowIdxById(this.selectedRowId)
+      return (rowId !== null && rowId !== undefined)
+        ? this.dataTable.getExistingRowIdxById(rowId)
         : undefined;
     }
+  }
+
+  @computed get selectedRowIndex(): number | undefined {
+    return this.getRowIndexById(this.selectedRowId)
   }
 
   @computed get trueSelectedRowIndex(): number | undefined {
