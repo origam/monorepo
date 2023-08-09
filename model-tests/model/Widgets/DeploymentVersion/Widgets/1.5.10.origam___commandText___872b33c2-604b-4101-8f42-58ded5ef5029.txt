@@ -1,0 +1,14 @@
+﻿CREATE TABLE [Document] (
+	[File] varbinary(max) NULL,
+	[FileCreated] DateTime NOT NULL,
+	[FileLastModified] DateTime NOT NULL,
+	[Filename] NVarChar(200) NOT NULL,
+	[FileSize] BigInt NOT NULL,
+	[OriginalPath] NVarChar(1000) NOT NULL,
+	[Remark] nvarchar(max) NULL,
+	[Thumbnail] varbinary(max) NULL,
+	[RecordCreated] DateTime NULL,
+	[RecordUpdatedBy] UniqueIdentifier NULL,
+	[Id] UniqueIdentifier NOT NULL PRIMARY KEY NONCLUSTERED,
+	[RecordCreatedBy] UniqueIdentifier NULL,
+	[RecordUpdated] DateTime NULL);

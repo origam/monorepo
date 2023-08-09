@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:file
+  xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
+  xmlns:ads="http://schemas.origam.com/Origam.Schema.EntityModel.AbstractDataStructure/6.0.0"
+  xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
+  xmlns:ds1="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructure/6.0.0"
+  xmlns:dse="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructureEntity/6.0.0">
+  <ds1:DataStructure
+    asi:abstract="false"
+    x:id="dd1117ba-ec0e-42ca-adaa-537cd6ccbf3a"
+    ds1:localized="false"
+    asi:name="Document">
+    <dse:DataStructureEntity
+      asi:abstract="false"
+      dse:allFields="true"
+      dse:concurrencyHandling="Standard"
+      dse:entity="Widgets/DataEntity/Widgets/Document.origam#Document/76c9a41e-1ca3-40b7-8e45-46dce90d0f0b"
+      x:id="960d0baa-54dd-4c0d-b633-3c4406e59e65"
+      dse:ignoreCondition="None"
+      dse:ignoreImplicitFilters="false"
+      asi:name="Document"
+      dse:relationType="Normal"
+      dse:useUpsert="false" />
+  </ds1:DataStructure>
+</x:file>

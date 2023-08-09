@@ -261,6 +261,31 @@
     </s2:MenuItem>
     <s2:MenuItem
       asi:abstract="false"
+      ami:alwaysOpenNew="false"
+      ami:displayName="Blob Control"
+      x:id="4f04f18d-9171-4e21-83f6-ea3c90f48b1c"
+      s2:isHidden="false"
+      asi:name="BlobControl"
+      ami:order="1000">
+      <frmi:MenuItem
+        asi:abstract="false"
+        ami:alwaysOpenNew="false"
+        frmi:autoSaveOnListRecordChange="false"
+        ami:displayName="Documents"
+        x:id="c0497e81-fda0-4f4c-9cb5-1d0b0906c25f"
+        asi:name="Document"
+        ami:openExclusively="false"
+        ami:order="100"
+        frmi:readOnlyAccess="false"
+        frmi:refreshAfterSaveType="RefreshChangedRecords"
+        frmi:refreshOnFocus="false"
+        frmi:refreshPortalAfterSave="false"
+        frmi:requestSaveAfterUpdate="false"
+        ami:roles="*"
+        frmi:screen="Widgets/FormControlSet/Widgets/Document.origam#Document/1c996bad-96be-4437-83ea-3a057826cd2e" />
+    </s2:MenuItem>
+    <s2:MenuItem
+      asi:abstract="false"
       ami:displayName="Text"
       x:id="7716a0e7-9293-4ab7-a52f-1cea3e416715"
       s2:isHidden="false"

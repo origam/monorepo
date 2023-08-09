@@ -7,7 +7,7 @@
     x:id="f17329d6-3143-420a-a2e6-30e431eea51d"
     x:isFolder="true"
     p:name="Widgets"
-    p:version="1.5.9">
+    p:version="1.5.10">
     <pr:packageReference
       x:id="3de8351f-ea09-4ffd-a5eb-f847b4355614"
       pr:referencedPackage="Root/.origamPackage#147fa70d-6519-4393-b5d0-87931f9fd609" />
