@@ -92,6 +92,12 @@ export class DataViewLifecycle implements IDataViewLifecycle {
       await this.onSelectedRowIdChangeImm();
     }
 
+    if (this._selectedRowReactionDisposer){
+      return;
+    }
+
+    this.stopSelectedRowReaction();
+
     const self = this;
     return (this._selectedRowReactionDisposer = reaction(
       () => {
