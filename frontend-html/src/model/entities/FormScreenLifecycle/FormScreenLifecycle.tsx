@@ -876,7 +876,8 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
   }
 
   *readFirstChunkOfRows(args: {
-    rootDataView: IDataView
+    rootDataView: IDataView,
+    runChangeRowReaction?: boolean
   }): any {
     const rootDataView = args.rootDataView;
     const api = getApi(this);
@@ -913,7 +914,9 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
       }
       rootDataView.restoreViewState();
     } finally {
-      rootDataView.lifecycle.startSelectedRowReaction(true);
+      if(args.runChangeRowReaction){
+        rootDataView.lifecycle.startSelectedRowReaction(true);
+      }
       this.monitor.inFlow--;
     }
   }
@@ -921,7 +924,7 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
   _readFirstChunkOfRowsRunning = false;
   _readFirstChunkOfRowsScheduled = false;
 
-  *readFirstChunkOfRowsWithGate(rootDataView: IDataView) {
+  *readFirstChunkOfRowsWithGate(rootDataView: IDataView, runChangeRowReaction?: boolean) {
     try {
       if (this._readFirstChunkOfRowsRunning) {
         this._readFirstChunkOfRowsScheduled = true;
@@ -931,7 +934,8 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
       do {
         this._readFirstChunkOfRowsScheduled = false;
         yield*this.readFirstChunkOfRows({
-          rootDataView: rootDataView
+          rootDataView: rootDataView,
+          runChangeRowReaction
         });
       } while (this._readFirstChunkOfRowsScheduled);
     } finally {
