@@ -52,12 +52,10 @@ export class DataViewLifecycle implements IDataViewLifecycle {
     return this.monitor.isWorkingDelayed;
   }
 
-  disposers: any[] = [];
-
   @action.bound
   start(): void {
     if (isLazyLoading(this)) {
-      this.disposers.push(this.startSelectedRowReaction());
+      this.startSelectedRowReaction();
     }
   }
 
