@@ -54,13 +54,7 @@ import { action, computed } from "mobx";
 import { getPanelMenuActions } from "model/selectors/DataView/getPanelMenuActions";
 import { DropdownDivider } from "gui/Components/Dropdown/DropdownDivider";
 import { getAreCrudButtonsEnabled } from "model/selectors/DataView/getAreCrudButtonsEnabled";
-import {
-  isAddRecordShortcut,
-  isDeleteRecordShortcut,
-  isDuplicateRecordShortcut,
-  isFilterRecordShortcut,
-  renderRowCount
-} from "gui/connections/CDataViewHeader";
+import {  renderRowCount} from "gui/connections/CDataViewHeader";
 import { DataViewHeader } from "gui/Components/DataViewHeader/DataViewHeader";
 import "gui/connections/MobileComponents/Grid/DataViewHeader.module.scss"
 import { getMobileState } from "model/selectors/getMobileState";
@@ -71,6 +65,12 @@ import { getColumnConfigurationModel } from "model/selectors/getColumnConfigurat
 import { saveColumnConfigurationsAsync } from "model/actions/DataView/TableView/saveColumnConfigurations";
 import { getRecordInfo } from "model/selectors/RecordInfo/getRecordInfo";
 import { RecordInfo } from "gui/connections/MobileComponents/Grid/RecordInfo";
+import {
+  isAddRecordShortcut,
+  isDeleteRecordShortcut,
+  isDuplicateRecordShortcut,
+  isFilterRecordShortcut
+} from "utils/keyShortcuts";
 
 @observer
 export class DataViewHeaderInner extends React.Component<{

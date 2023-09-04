@@ -35,7 +35,7 @@ import { IAboutInfo } from "./types/IAboutInfo";
 import { T } from "utils/translation";
 import fileDownload from "js-file-download";
 import { ITableConfiguration } from "model/entities/TablePanelView/types/IConfigurationManager";
-import { PubSub } from "utils/events";
+import { EventHandler } from "utils/events";
 import { layoutToString } from "model/entities/TablePanelView/layout";
 
 
@@ -81,7 +81,7 @@ export class OrigamAPI implements IApi {
     return axiosInstance;
   }
 
-  onApiResponse = new PubSub<{}>();
+  onApiResponse = new EventHandler<{}>();
 
   errorHandler: (error: any) => void;
   axiosInstance: AxiosInstance;

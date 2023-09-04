@@ -52,14 +52,7 @@ import { About } from "model/entities/AboutInfo";
 import { showDialog } from "model/selectors/getDialogStack";
 import { AboutDialog } from "gui/Components/Dialogs/AboutDialog";
 import { geScreenActionButtonsState } from "model/actions-ui/ScreenToolbar/saveBottonVisible";
-
-function isSaveShortcut(event: any) {
-  return event.key === "s" && (event.ctrlKey || event.metaKey);
-}
-
-function isRefreshShortcut(event: any) {
-  return event.key === "r" && (event.ctrlKey || event.metaKey);
-}
+import { isRefreshShortcut, isSaveShortcut } from "utils/keyShortcuts";
 
 @observer
 export class CScreenToolbar extends React.Component<{}> {

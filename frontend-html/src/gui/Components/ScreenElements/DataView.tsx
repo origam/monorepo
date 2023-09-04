@@ -30,7 +30,7 @@ import { IDataViewBodyUI } from "modules/DataView/DataViewUI";
 import { TreeView } from "./TreeView";
 import { observable } from "mobx";
 import { getIsDataViewOrFormScreenWorking } from "model/selectors/DataView/getIsDataViewOrFormScreenWorking.1";
-import { PubSub } from "utils/events";
+import { EventHandler } from "utils/events";
 import { isMobileLayoutActive } from "model/selectors/isMobileLayoutActive";
 import { MobileDataViewHeader } from "gui/connections/MobileComponents/Grid/DataViewHeader";
 
@@ -154,7 +154,7 @@ export class DataViewInner extends React.Component<IDataViewProps> {
 }
 
 export class DataViewContext {
-  private tableKeyDownChannel = new PubSub();
+  private tableKeyDownChannel = new EventHandler();
 
   subscribeTableKeyDownHandler(fn: (event: any) => void) {
     return this.tableKeyDownChannel.subscribe(fn);

@@ -18,10 +18,10 @@ along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
 import { TypeSymbol } from "dic/Container";
-import { PubSub } from "utils/events";
+import { EventHandler } from "utils/events";
 
 export class ScreenEvents {
-  focusField = new PubSub<{ propertyId: string }>();
+  focusField = new EventHandler<{ propertyId: string }>();
 }
 
 export const IScreenEvents = TypeSymbol<ScreenEvents>("IScreenEvents");

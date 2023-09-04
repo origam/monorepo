@@ -144,5 +144,6 @@ namespace Origam.Server
         public IFilteringConfig FilteringConfig { get; set; }
 
         public string InitialScreenId { get; set; }
+        public int RowStatesDebouncingDelayMilliseconds { get; set; }
     }
 }

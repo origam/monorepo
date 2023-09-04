@@ -37,6 +37,7 @@ import { action } from "mobx";
 import { Breakpoint, useCurrentBreakpointName } from "react-socks";
 import S from "gui/Components/WorkbenchPage/WorkbenchPage.module.scss";
 import { MobileMain } from "gui/connections/MobileComponents/MobileMain";
+import { NotificationContainer } from "gui/connections/NotificationContainer";
 
 @observer
 export class CWorkbenchPage extends React.Component {
@@ -76,6 +77,7 @@ export class CWorkbenchPage extends React.Component {
                     <CScreenTabbedViewHandleRow/>
                     <Fullscreen isFullscreen={isFullscreen}>
                       <CScreenHeader/>
+                      <NotificationContainer/>
                       <CScreenContent/>
                     </Fullscreen>
                     <CDialogContent/>

@@ -19,12 +19,12 @@ along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 
 import { flow } from "mobx";
 import { createMachine, interpret } from "xstate";
-import { PubSub } from "./events";
+import { EventHandler } from "./events";
 
 export class PeriodicLoader {
   private timeoutHandle: any;
 
-  constructor(private loadFunction: () => Generator, private getChSuccessfulApi: () => PubSub<{}>) {
+  constructor(private loadFunction: () => Generator, private getChSuccessfulApi: () => EventHandler<{}>) {
     this.interpreter.start();
   }
 

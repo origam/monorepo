@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="1200" height="1200" viewBox="0 0 1200 1200" xml:space="preserve">
+<desc>Created with Fabric.js 5.2.4</desc>
+<defs>
+</defs>
+<rect x="0" y="0" width="100%" height="100%" fill="transparent"></rect>
+<g transform="matrix(Infinity NaN NaN Infinity 0 0)" id="8ec821d1-023c-4e0e-b854-56b2b35a60ce"  >
+</g>
+<g transform="matrix(1 0 0 1 600 600)" id="f7406574-cd78-4966-8573-773bee0e2835"  >
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1; visibility: hidden;" vector-effect="non-scaling-stroke"  x="-600" y="-600" rx="0" ry="0" width="1200" height="1200" />
+</g>
+<g transform="matrix(15.43 0 0 15.43 600 600)" id="28ac5d2b-a61b-44be-8d4c-c87a30729921"  >
+<circle style="stroke: rgb(37,32,172); stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(76,132,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  cx="0" cy="0" r="35" />
+</g>
+<g transform="matrix(29.17 0 0 29.17 600 600)"  >
+<g style="" vector-effect="non-scaling-stroke"   >
+		<g transform="matrix(1 0 0 1 0 -8)"  >
+<rect style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  x="-2" y="-2" rx="0" ry="0" width="4" height="4" />
+</g>
+		<g transform="matrix(1 0 0 1 0 3)"  >
+<polygon style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;" vector-effect="non-scaling-stroke"  points="2,3 2,-7 -4,-7 -4,-3 -2,-3 -2,3 -4,3 -4,7 4,7 4,3 " />
+</g>
+</g>
+</g>
+<g transform="matrix(NaN NaN NaN NaN 0 0)"  >
+<g style=""   >
+</g>
+</g>
+<g transform="matrix(NaN NaN NaN NaN 0 0)"  >
+<g style=""   >
+</g>
+</g>
+<g transform="matrix(NaN NaN NaN NaN 0 0)"  >
+<g style=""   >
+</g>
+</g>
+</svg>

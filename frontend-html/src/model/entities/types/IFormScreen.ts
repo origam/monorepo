@@ -153,7 +153,7 @@ export interface IFormScreen extends IFormScreenData {
   dynamicTitle: string | undefined;
 
   dataUpdateCRS: CriticalSection;
-
+  notifications: IScreenNotification[]
   pictureCache: ScreenPictureCache;
   dataViewCache: DataViewCache;
 
@@ -184,6 +184,11 @@ export interface IFormScreen extends IFormScreenData {
   printMasterDetailTree(): void;
 
   parent?: any;
+}
+
+export interface IScreenNotification {
+  icon: string,
+  text: string
 }
 
 export const isIFormScreenEnvelope = (o: any): o is IFormScreenEnvelope =>

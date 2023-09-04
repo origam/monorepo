@@ -17,13 +17,13 @@ You should have received a copy of the GNU General Public License
 along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-export type IPSSubscriber<T> = (arg?: T) => void;
+export type IEventHandlerSubscriber<T> = (arg?: T) => void;
 
-export class PubSub<T> {
+export class EventHandler<T> {
   newId = 0;
   subscribers = new Map();
 
-  subscribe(subscriber: IPSSubscriber<T>) {
+  subscribe(subscriber: IEventHandlerSubscriber<T>) {
     const myId = this.newId++;
     this.subscribers.set(myId, subscriber);
     return () => {

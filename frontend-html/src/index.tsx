@@ -33,11 +33,23 @@ import Cookie from "js-cookie";
 import { translationsInit } from "./utils/translation";
 import { getLocaleFromCookie, initLocaleCookie } from "utils/cookies";
 import moment from "moment";
-import "moment/min/locales";
+import 'moment/dist/locale/de';
+import 'moment/dist/locale/de-at';
+import 'moment/dist/locale/de-ch';
+import 'moment/dist/locale/fr.js';
+import 'moment/dist/locale/fr-ch.js';
+import 'moment/dist/locale/fr-ca.js';
+import 'moment/dist/locale/cs';
 import { preventDoubleclickSelect } from "utils/mouse";
 import { RootError } from "RootError";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { ArrayPrototypes } from "@origam/utils"
+import {
+  isAddRecordShortcut,
+  isDeleteRecordShortcut,
+  isDuplicateRecordShortcut,
+  isFilterRecordShortcut
+} from "utils/keyShortcuts";
 
 if (import.meta.env.DEV) {
   axios.defaults.timeout = 3600000;
@@ -57,9 +69,25 @@ function disableAutoZoomingOnIPhone(){
   }
 }
 
+function disableCollidingBrowserShortcuts() {
+  const ignoreShortcuts = (event: KeyboardEvent) => {
+    if (
+      isAddRecordShortcut(event) ||
+      isDuplicateRecordShortcut(event) ||
+      isDeleteRecordShortcut(event) ||
+      isFilterRecordShortcut(event)
+    ) {
+      event.preventDefault();
+    }
+  };
+
+  window.addEventListener("keydown", ignoreShortcuts);
+}
+
 async function main() {
   disableAutoZoomingOnIPhone();
   preventDoubleclickSelect();
+  disableCollidingBrowserShortcuts();
   const locationHash = window.location.hash;
   const TOKEN_OVR_HASH = "#origamAuthTokenOverride=";
   if (locationHash.startsWith(TOKEN_OVR_HASH)) {

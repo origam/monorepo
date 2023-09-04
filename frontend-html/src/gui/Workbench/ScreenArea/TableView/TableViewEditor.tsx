@@ -102,7 +102,7 @@ export class TableViewEditor extends React.Component<{
       ? shadeHexColor(customBackgroundColor, -0.1)
       : customBackgroundColor;
 
-    const isFirsColumn = getTablePanelView(dataView)?.firstColumn === this.props.property;
+    const isFirstColumn = getTablePanelView(dataView)?.firstColumn === this.props.property;
     const gridFocusManager = getGridFocusManager(this.props.property);
     switch (this.props.property!.column) {
       case "Number":
@@ -121,7 +121,7 @@ export class TableViewEditor extends React.Component<{
             onClick={undefined}
             onDoubleClick={(event) => this.onDoubleClick(event)}
             onEditorBlur={this.props.onEditorBlur}
-            customStyle={resolveCellAlignment(this.props.property?.style, isFirsColumn, "Number")}
+            customStyle={resolveCellAlignment(this.props.property?.style, isFirstColumn, "Number")}
             subscribeToFocusManager={(editor, onBlur) =>{
                 gridFocusManager.activeEditor = editor
                 gridFocusManager.editorBlur = onBlur;
@@ -144,7 +144,7 @@ export class TableViewEditor extends React.Component<{
             onKeyDown={this.props.onEditorKeyDown}
             onClick={undefined}
             wrapText={false}
-            customStyle={resolveCellAlignment(this.props.property?.style, isFirsColumn, "Text")}
+            customStyle={resolveCellAlignment(this.props.property?.style, isFirstColumn, "Text")}
             onDoubleClick={(event) => this.onDoubleClick(event)}
             onEditorBlur={this.props.onEditorBlur}
             isRichText={false}
@@ -198,6 +198,7 @@ export class TableViewEditor extends React.Component<{
             xmlNode={this.props.property!.xmlNode}
             onDoubleClick={(event) => this.onDoubleClick(event)}
             isReadOnly={readOnly}
+            customStyle={resolveCellAlignment(this.props.property?.style, isFirstColumn, "Text")}
             foregroundColor={foregroundColor}
             backgroundColor={backgroundColor}
             autoSort={this.props.property!.autoSort}

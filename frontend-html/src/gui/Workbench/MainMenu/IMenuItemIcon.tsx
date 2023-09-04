@@ -23,5 +23,6 @@ export enum IMenuItemIcon {
   Workflow = "menu_workflow.png",
   Parameter = "menu_parameter.png",
   WorkQueue = "./icons/work-queue.svg",
-  Chat = "./icons/chat.svg"
+  Chat = "./icons/chat.svg",
+  DataConstant = "menu_parameter.png"
 }

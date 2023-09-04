@@ -22,7 +22,7 @@ import { IOrdering } from "./IOrderingConfiguration";
 import { IServerSearchResult } from "model/entities/types/ISearchResult";
 import { IAboutInfo } from "./IAboutInfo";
 import { ITableConfiguration } from "model/entities/TablePanelView/types/IConfigurationManager";
-import { PubSub } from "utils/events";
+import { EventHandler } from "utils/events";
 
 export interface IApi {
   getAboutInfo(): Promise<IAboutInfo>;
@@ -37,7 +37,7 @@ export interface IApi {
 
   createCanceller(): () => void;
 
-  onApiResponse: PubSub<{}>;
+  onApiResponse: EventHandler<{}>;
 
   login(credentials: { UserName: string; Password: string }): Promise<string>;
 

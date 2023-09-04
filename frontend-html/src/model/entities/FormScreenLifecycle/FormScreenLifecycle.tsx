@@ -564,6 +564,7 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
       args.initUIResult.workflowTaskId,
       openedScreen.lazyLoading
     );
+    screen.notifications = args.initUIResult.notifications;
     const api = getApi(openedScreen);
     const cacheDependencies = getWorkbench(openedScreen).lookupMultiEngine.cacheDependencies;
     const lookupIdsToQuery = cacheDependencies.getUnhandledLookupIds(foundLookupIds);
@@ -722,7 +723,8 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
         } else {
           yield this.updateTotalRowCount(rootDataView);
           yield*this.readFirstChunkOfRows({
-            rootDataView: rootDataView
+            rootDataView: rootDataView,
+            runChangeRowReaction: true
           });
         }
       }
@@ -877,7 +879,7 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
 
   *readFirstChunkOfRows(args: {
     rootDataView: IDataView,
-    runChangeRowReaction?: boolean
+    runChangeRowReaction: boolean
   }): any {
     const rootDataView = args.rootDataView;
     const api = getApi(this);
@@ -914,7 +916,7 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
       }
       rootDataView.restoreViewState();
     } finally {
-      if(args.runChangeRowReaction){
+      if(args.runChangeRowReaction) {
         rootDataView.lifecycle.startSelectedRowReaction(true);
       }
       this.monitor.inFlow--;
@@ -924,7 +926,7 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
   _readFirstChunkOfRowsRunning = false;
   _readFirstChunkOfRowsScheduled = false;
 
-  *readFirstChunkOfRowsWithGate(rootDataView: IDataView, runChangeRowReaction?: boolean) {
+  *readFirstChunkOfRowsWithGate(rootDataView: IDataView) {
     try {
       if (this._readFirstChunkOfRowsRunning) {
         this._readFirstChunkOfRowsScheduled = true;
@@ -935,7 +937,7 @@ export class FormScreenLifecycle02 implements IFormScreenLifecycle02 {
         this._readFirstChunkOfRowsScheduled = false;
         yield*this.readFirstChunkOfRows({
           rootDataView: rootDataView,
-          runChangeRowReaction
+          runChangeRowReaction: false
         });
       } while (this._readFirstChunkOfRowsScheduled);
     } finally {

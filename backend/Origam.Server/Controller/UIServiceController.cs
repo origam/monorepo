@@ -1217,6 +1217,7 @@ namespace Origam.Server.Controller
                 : chatConfig.ChatRefreshInterval;
             result.CustomAssetsRoute = customAssetsConfig.RouteToCustomAssetsFolder;
             result.ShowToolTipsForMemoFieldsOnly = htmlClientConfig.ShowToolTipsForMemoFieldsOnly;
+            result.RowStatesDebouncingDelayMilliseconds = htmlClientConfig.RowStatesDebouncingDelayMilliseconds;
             result.FilteringConfig = clientFilteringConfig;
         }
     }

@@ -207,6 +207,9 @@
     <None Update="assets\identity\js\browser-check.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TemplateFiles\testUserUnlockNotificationFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

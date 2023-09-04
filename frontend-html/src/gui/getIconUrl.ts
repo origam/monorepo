@@ -31,6 +31,8 @@ export function getIconUrl(iconName: string | IMenuItemIcon, iconPath?: string) 
       return "./icons/chat.svg";
     case IMenuItemIcon.Folder:
       return "./icons/folder-closed.svg";
+    case IMenuItemIcon.DataConstant:
+      return "./icons/menu_parameter.png";
     default:
       if (iconPath) {
         return iconPath;

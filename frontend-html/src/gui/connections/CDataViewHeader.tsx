@@ -71,6 +71,12 @@ import { getTrueSelectedRowIndex } from "model/selectors/DataView/getTrueSelecte
 import { getAreCrudButtonsEnabled } from "model/selectors/DataView/getAreCrudButtonsEnabled";
 import { IDataView } from "model/entities/types/IDataView";
 import { saveColumnConfigurationsAsync } from "model/actions/DataView/TableView/saveColumnConfigurations";
+import {
+  isAddRecordShortcut,
+  isDeleteRecordShortcut,
+  isDuplicateRecordShortcut,
+  isFilterRecordShortcut
+} from "utils/keyShortcuts";
 
 @observer
 export class CDataViewHeaderInner extends React.Component<{
@@ -484,26 +490,4 @@ export function renderRowCount(dataView: IDataView) {
 export function CDataViewHeader(props: { isVisible: boolean }) {
   const extension = useContext(CtxDataViewHeaderExtension);
   return <CDataViewHeaderInner isVisible={props.isVisible} extension={extension}/>;
-}
-
-export function isAddRecordShortcut(event: any) {
-  return (
-    ((event.ctrlKey || event.metaKey) && !event.shiftKey && event.key === "i") ||
-    ((event.ctrlKey || event.metaKey) && event.shiftKey && event.key === "j") ||
-      event.key === "Insert"
-  );
-}
-
-export function isDeleteRecordShortcut(event: any) {
-  return (event.ctrlKey || event.metaKey) && !event.shiftKey && event.key === "Delete";
-}
-
-export function isDuplicateRecordShortcut(event: any) {
-  return (
-    (event.ctrlKey || event.metaKey) && !event.shiftKey && (event.key === "d" || event.key === "k")
-  );
-}
-
-export function isFilterRecordShortcut(event: any) {
-  return (event.ctrlKey || event.metaKey) && event.key === "f";
 }

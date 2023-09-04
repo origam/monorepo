@@ -22,7 +22,7 @@ import {
   columnWidths,
   context,
   context2d,
-  currentRow,
+  currentRow, dataView,
   drawingColumnIndex,
   fixedColumnCount,
   gridLeadCellDimensions,
@@ -31,7 +31,7 @@ import {
   mouseMoveSubscriptions,
   mouseOverSubscriptions,
   propertyById,
-  realFixedColumnCount,
+  realFixedColumnCount, recordId,
   rowHeight,
   rowIndex,
   scRenderCell,
@@ -59,6 +59,7 @@ import {
 } from "gui/Components/ScreenElements/Table/TableRendering/DebugTableMonitor";
 import { flow } from "mobx";
 import selectors from "model/selectors-tree";
+import { EventHandler } from "utils/events";
 
 export function renderTable(
   aCtx: any,
@@ -106,12 +107,22 @@ export function renderTable(
     const ctx2d = context2d();
     ctx2d.fillStyle = "white";
     ctx2d.fillRect(0, 0, CPR() * viewportWidth(), CPR() * viewportHeight());
-    const i0 = firstDrawableRowIndex();
-    const i1 = lastDrawableRowIndex();
-    if (i0 === undefined || i1 === undefined) return;
-    for (let i = i0; i <= i1; i++) {
+    const firstRenderedIndex = Math.max(firstDrawableRowIndex() -5, 0);
+    const lastVisibleIndex = lastDrawableRowIndex() + 5;
+    if (firstRenderedIndex === undefined || lastVisibleIndex === undefined) return;
+    const visibleRowIds = [];
+    for (let i = firstRenderedIndex; i <= lastVisibleIndex; i++) {
+      rowIndex.set(i);
+      if (i <= lastVisibleIndex && currentRow()) {
+        visibleRowIds.push(recordId());
+      }
       renderRow(i);
     }
+    visibleRowsChanged.trigger(
+      {
+        dataSourceId: dataView().dataSource.identifier,
+        rowIds: visibleRowIds
+      });
     setTableDebugRendered(context())
   } 
   catch(error) {
@@ -148,8 +159,7 @@ function renderSecondLayerCells() {
   setLayerIndex(0);
 }
 
-export function renderRow(rowIdx: number) {
-  rowIndex.set(rowIdx);
+function renderRow(rowIdx: number) {
   setCurrentRowRightBorderDrawn(false);
   try {
     if (!currentRow()) return;
@@ -173,3 +183,10 @@ export function renderCell(columnIdx: number) {
     for (let d of scRenderCell) d();
   }
 }
+
+export interface IVisibleRowData{
+  dataSourceId: string;
+  rowIds: string[];
+}
+
+export const visibleRowsChanged = new EventHandler<IVisibleRowData>();

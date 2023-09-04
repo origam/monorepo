@@ -1,5 +1,5 @@
 /*
-Copyright 2005 - 2021 Advantage Solutions, s. r. o.
+Copyright 2005 - 2023 Advantage Solutions, s. r. o.
 
 This file is part of ORIGAM (http://www.origam.org).
 
@@ -17,13 +17,46 @@ You should have received a copy of the GNU General Public License
 along with ORIGAM. If not, see <http://www.gnu.org/licenses/>.
 */
 
-import { IFilterConfig } from "./IFilterConfig";
+.root {
+  background: var(--background1);
+  margin-bottom: 1em;
+  padding-left: 2em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
 
-export interface IPortalSettings {
-  showChat: boolean;
-  showWorkQueues: boolean;
-  helpUrl: string;
-  showToolTipsForMemoFieldsOnly: boolean;
-  rowStatesDebouncingDelayMilliseconds: number;
-  filterConfig: IFilterConfig;
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
+.row:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+div svg.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  stroke: var(--background1);
+}
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-right: 3px;
+}
+
+.errorIcon {
+  fill: var(--error1);
+}
+
+.warningIcon {
+  fill: var(--warning1);
+}
+
+.infoIcon {
+  fill: var(--foreground1);
 }

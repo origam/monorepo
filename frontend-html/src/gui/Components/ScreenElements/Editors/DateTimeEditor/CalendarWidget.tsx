@@ -129,9 +129,9 @@ export class CalendarWidget extends React.Component<{
               </button>
               <div
                 className={S.title}
-                title={this.displayedMonth.format("YYYY MMMM")}
+                title={formatYearAndMonth(this.displayedMonth)}
               >
-                {this.displayedMonth.format("YYYY MMMM")}
+                {formatYearAndMonth(this.displayedMonth)}
               </div>
               <button className={S.controlBtn} onClick={this.handleYearDecClick}>
                 <i className="fas fa-caret-down"/>
@@ -147,4 +147,21 @@ export class CalendarWidget extends React.Component<{
       </div>
     );
   }
+}
+
+function formatYearAndMonth(moment: moment.Moment){
+  return moment.format("YYYY ") + getMonthName(moment);
+}
+
+// moment.format("MMMM") does not return czech month name in the first case
+// ("června" instead of "červen"). This function does.
+function getMonthName(moment: moment.Moment){
+  const csMonths = [
+    'leden', 'únor', 'březen', 'duben', 'květen', 'červen',
+    'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'
+  ];
+  if (moment.locale() === "cs") {
+    return csMonths[moment.month()];
+  }
+  return moment.format("MMMM");
 }

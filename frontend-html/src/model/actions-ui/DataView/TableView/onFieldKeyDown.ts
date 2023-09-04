@@ -28,6 +28,17 @@ import { handleError } from "model/actions/handleError";
 import { getDataView } from "model/selectors/DataView/getDataView";
 import { shouldProceedToChangeRow } from "model/actions-ui/DataView/TableView/shouldProceedToChangeRow";
 import { getGridFocusManager } from "model/entities/GridFocusManager";
+import {
+  isSaveShortcut,
+  isAddRecordShortcut,
+  isDeleteRecordShortcut,
+  isDuplicateRecordShortcut,
+  isFilterRecordShortcut
+} from "utils/keyShortcuts";
+import { onDeleteRowClick } from "model/actions-ui/DataView/onDeleteRowClick";
+import { onCreateRowClick } from "model/actions-ui/DataView/onCreateRowClick";
+import { onCopyRowClick } from "model/actions-ui/DataView/onCopyRowClick";
+import { onFilterButtonClick } from "model/actions-ui/DataView/onFilterButtonClick";
 
 export function onFieldKeyDown(ctx: any) {
 
@@ -111,6 +122,20 @@ export function onFieldKeyDown(ctx: any) {
           tablePanelView.clearCurrentCellEditData();
           tablePanelView.triggerOnFocusTable();
           break;
+        }
+        default: {
+          if (isSaveShortcut(event)) {
+            tablePanelView.setEditing(false);
+            yield*flushCurrentRowData(ctx)();
+          } else if (isAddRecordShortcut(event)) {
+            yield onCreateRowClick(dataView)(event);
+          } else if (isDeleteRecordShortcut(event)) {
+            yield onDeleteRowClick(dataView)(event);
+          } else if (isDuplicateRecordShortcut(event)) {
+            yield onCopyRowClick(dataView)(event);
+          } else if (isFilterRecordShortcut(event)) {
+            yield onFilterButtonClick(dataView)(event);
+          }
         }
       }
     } catch (e) {

@@ -24,10 +24,13 @@ import { getApi } from "model/selectors/getApi";
 import { getSessionId } from "model/selectors/getSessionId";
 import { flashColor2htmlColor } from "utils/flashColorFormat";
 import { IRowState, IRowStateColumnItem, IRowStateData, IRowStateItem } from "./types/IRowState";
-import { FlowBusyMonitor } from "../../utils/flow";
+import { FlowBusyMonitor } from "utils/flow";
 import { handleError } from "model/actions/handleError";
+import { visibleRowsChanged } from "gui/Components/ScreenElements/Table/TableRendering/renderTable";
+import { getDataSource } from "model/selectors/DataSources/getDataSource";
+import { CancellablePromise } from "mobx/lib/api/flow";
 
-const maxRowStatesInOneCall = 100;
+const defaultRowStatesToFetch = 100;
 
 export enum IIdState {
   LOADING = "LOADING",
@@ -37,9 +40,19 @@ export enum IIdState {
 export class RowState implements IRowState {
   $type_IRowState: 1 = 1;
   suppressWorkingStatus: boolean = false;
+  visibleRowIds: string[] = [];
 
-  constructor(data: IRowStateData) {
-    Object.assign(this, data);
+  constructor(debouncingDelayMilliseconds?: number) {
+    this.triggerLoadDebounced = _.debounce(
+      this.triggerLoadImm,
+      debouncingDelayMilliseconds == undefined ? 200 : debouncingDelayMilliseconds);
+    visibleRowsChanged.subscribe((visibleRows) => {
+      const dataSource = getDataSource(this);
+      if (!visibleRows || dataSource.identifier !== visibleRows.dataSourceId) {
+        return;
+      }
+      this.visibleRowIds = visibleRows.rowIds;
+    });
   }
 
   monitor: FlowBusyMonitor = new FlowBusyMonitor();
@@ -49,88 +62,98 @@ export class RowState implements IRowState {
   }
 
   @observable firstLoadingPerformed = false;
-  @observable temporaryContainersValues?: Map<string, RowStateContainer>;
+  @observable temporaryRequestsValues?: Map<string, RowStateRequest>;
   @computed get mayCauseFlicker() {
     return !this.firstLoadingPerformed;
   }
 
-  containers: Map<string, RowStateContainer> = new Map<string, RowStateContainer>();
+  requests: Map<string, RowStateRequest> = new Map<string, RowStateRequest>();
 
   @observable
   isSomethingLoading = false;
 
-  triggerLoadImm = flow(() => this.triggerLoad(maxRowStatesInOneCall));
+  triggerLoadImm = flow(() => this.triggerLoad(false));
 
-  *triggerLoad(rowStatesToLoad?: number): any {
+  private getRequestsToLoad(loadAll: boolean){
+    if(loadAll){
+      return this.requests.values()
+    }
+    return this.visibleRowIds.length === 0
+      ? Array.from(this.requests.values()).slice(-defaultRowStatesToFetch)
+      : this.visibleRowIds
+            .map(rowId => this.requests.get(rowId))
+            .filter(x => x !== undefined) as unknown as IterableIterator<RowStateRequest>;
+  }
+
+  *triggerLoad(loadAll: boolean): any {
     if (this.isSomethingLoading) {
       return;
     }
-    let containersToLoad: Map<string, RowStateContainer> = new Map();
+    let requestsToLoad: Map<string, RowStateRequest> = new Map();
     let reportBusyStatus = true;
     try {
       while (true) {
         try {
-          const containers = rowStatesToLoad
-            ?  Array.from(this.containers.values()).slice(-rowStatesToLoad)
-            : this.containers.values();
-          for (let container of containers) {
-            if (container.rowId && !container.isValid && !container.processingSate){
-              containersToLoad.set(container.rowId, container);
+          const requests = this.getRequestsToLoad(loadAll);
+
+          for (let request of requests) {
+            if (request.rowId && !request.isValid && !request.processingSate){
+              requestsToLoad.set(request.rowId, request);
             }
           }
-          reportBusyStatus = Array.from(containersToLoad.values()).every(container => !container.suppressWorkingStatus);
+          reportBusyStatus = Array.from(requestsToLoad.values()).every(requests => !requests.suppressWorkingStatus);
           if (reportBusyStatus){
             this.monitor.inFlow++;
           }
-          if (containersToLoad.size === 0) {
+          if (requestsToLoad.size === 0) {
             break;
           }
-          for (let container of containersToLoad.values()) {
-            container.processingSate = IIdState.LOADING;
+          for (let request of requestsToLoad.values()) {
+            request.processingSate = IIdState.LOADING;
           }
           this.isSomethingLoading = true;
           const api = getApi(this);
           const states = yield api.getRowStates({
             SessionFormIdentifier: getSessionId(this),
             Entity: getEntity(this),
-            Ids: Array.from(containersToLoad.values()).map(container => container.rowId)
+            Ids: Array.from(requestsToLoad.values()).map(request => request.rowId)
           });
           this.isSomethingLoading = false;
           this.firstLoadingPerformed = true;
           for (let state of states) {
             this.putValue(state);
-            this.containers.get(state.id)!.processingSate = undefined;
+            this.requests.get(state.id)!.processingSate = undefined;
           }
         } catch (error) {
           this.isSomethingLoading = false;
           this.firstLoadingPerformed = true;
-          for (let container of containersToLoad.values()) {
-            container.processingSate = IIdState.ERROR;
+          for (let request of requestsToLoad.values()) {
+            request.processingSate = IIdState.ERROR;
           }
           yield* handleError(this)(error);
         } finally {
           if(reportBusyStatus){
             this.monitor.inFlow--;
           }
-          containersToLoad.forEach(container => container.suppressWorkingStatus = false);
-          containersToLoad.clear();
+          requestsToLoad.forEach(request => request.suppressWorkingStatus = false);
+          requestsToLoad.clear();
         }
       }
     } finally {
       // After everything got loaded, here we switch back to provide the values just loaded.
-      this.temporaryContainersValues = undefined;
+      this.temporaryRequestsValues = undefined;
     }
   }
-  triggerLoadDebounced = _.debounce(this.triggerLoadImm, 666);
+  triggerLoadDebounced: any;
 
   getValue(rowId: string) {
-    if (!this.containers.has(rowId)) {
-      this.containers.set(rowId, new RowStateContainer(rowId));
+    if (!this.requests.has(rowId)) {
+      this.requests.set(rowId, new RowStateRequest(rowId));
     }
-    let container = this.containers.get(rowId)!;
-    if (!container.atom) {
-      container.suppressWorkingStatus = this.suppressWorkingStatus;
-      container.atom = createAtom(
+    let request = this.requests.get(rowId)!;
+    if (!request.atom) {
+      request.suppressWorkingStatus = this.suppressWorkingStatus;
+      request.atom = createAtom(
         `RowState atom [${rowId}]`,
         () =>
           requestAnimationFrame(() => {
@@ -140,25 +163,25 @@ export class RowState implements IRowState {
         }
       )
     }
-    container.atom.reportObserved?.();
-    if (this.temporaryContainersValues && this.temporaryContainersValues.has(rowId)) {
-      return this.temporaryContainersValues.get(rowId)?.rowStateItem;
+    request.atom.reportObserved?.();
+    if (this.temporaryRequestsValues && this.temporaryRequestsValues.has(rowId)) {
+      return this.temporaryRequestsValues.get(rowId)?.rowStateItem;
     } else {
-      return this.containers.get(rowId)?.rowStateItem;
+      return this.requests.get(rowId)?.rowStateItem;
     }
   }
 
   async loadValues(rowIds: string[]) {
     for (const rowId of rowIds) {
-      if (!this.containers.has(rowId)) {
-        this.containers.set(rowId, new RowStateContainer(rowId));
+      if (!this.requests.has(rowId)) {
+        this.requests.set(rowId, new RowStateRequest(rowId));
       }
     }
-    await flow(this.triggerLoad.bind(this))();
+    await flow(() => this.triggerLoad(true))();
   }
 
   hasValue(rowId: string): boolean {
-    return this.containers.has(rowId);
+    return this.requests.has(rowId);
   }
 
   @action.bound
@@ -185,39 +208,39 @@ export class RowState implements IRowState {
       new Set(state.disabledActions),
       state.relations
     );
-    if (!this.containers.has(state.id)) {
-      this.containers.set(state.id, new RowStateContainer(state.id));
+    if (!this.requests.has(state.id)) {
+      this.requests.set(state.id, new RowStateRequest(state.id));
     }
-    const container = this.containers.get(state.id);
-    container!.rowStateItem = rowStateItem;
-    container!.isValid = true;
+    const request = this.requests.get(state.id);
+    request!.rowStateItem = rowStateItem;
+    request!.isValid = true;
     this.firstLoadingPerformed = true;
   }
 
   @action.bound reload() {
    // Store the rest of values to suppress flickering while reloading.
-    this.temporaryContainersValues = new Map(this.containers.entries());
+    this.temporaryRequestsValues = new Map(this.requests.entries());
     // This actually causes reloading of the values (by views calling getValue(...) )
-    for (let rowStateContainer of this.containers.values()) {
-      rowStateContainer.atom?.onBecomeUnobservedListeners?.clear();
-      rowStateContainer.atom?.onBecomeObservedListeners?.clear();
-      rowStateContainer.atom = undefined;
-      rowStateContainer.isValid = false;
-      rowStateContainer.processingSate = undefined;
+    for (let rowStateRequest of this.requests.values()) {
+      rowStateRequest.atom?.onBecomeUnobservedListeners?.clear();
+      rowStateRequest.atom?.onBecomeObservedListeners?.clear();
+      rowStateRequest.atom = undefined;
+      rowStateRequest.isValid = false;
+      rowStateRequest.processingSate = undefined;
     }
   }
 
   @action.bound clearAll() {
-    for (let rowStateContainer of this.containers.values()) {
-      rowStateContainer.atom?.onBecomeUnobservedListeners?.clear();
-      rowStateContainer.atom?.onBecomeObservedListeners?.clear();
-      rowStateContainer.atom = undefined;
-      rowStateContainer.isValid = false;
-      rowStateContainer.processingSate = undefined;
+    for (let rowStateRequest of this.requests.values()) {
+      rowStateRequest.atom?.onBecomeUnobservedListeners?.clear();
+      rowStateRequest.atom?.onBecomeObservedListeners?.clear();
+      rowStateRequest.atom = undefined;
+      rowStateRequest.isValid = false;
+      rowStateRequest.processingSate = undefined;
     }
-    this.containers.clear();
+    this.requests.clear();
     this.firstLoadingPerformed = false;
-    this.temporaryContainersValues = undefined;
+    this.temporaryRequestsValues = undefined;
     // TODO: Wait when something is currently loading.
   }
 
@@ -250,7 +273,7 @@ export class RowStateColumnItem implements IRowStateColumnItem {
   }
 }
 
-class RowStateContainer {
+class RowStateRequest {
   public rowId: string;
 
   @observable

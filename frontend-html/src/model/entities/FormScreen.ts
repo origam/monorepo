@@ -24,7 +24,13 @@ import { IFormScreenLifecycle02 } from "./types/IFormScreenLifecycle";
 import { action, computed, observable } from "mobx";
 import { IAction } from "./types/IAction";
 import { isLazyLoading } from "model/selectors/isLazyLoading";
-import { IFormScreen, IFormScreenData, IFormScreenEnvelope, IFormScreenEnvelopeData, } from "./types/IFormScreen";
+import {
+  IFormScreen,
+  IFormScreenData,
+  IFormScreenEnvelope,
+  IFormScreenEnvelopeData,
+  IScreenNotification,
+} from "./types/IFormScreen";
 import { IPanelConfiguration } from "./types/IPanelConfiguration";
 import { CriticalSection } from "utils/sync";
 import { getRowStates } from "model/selectors/RowState/getRowStates";
@@ -41,6 +47,7 @@ import { ScreenFocusManager } from "model/entities/ScreenFocusManager";
 export class FormScreen implements IFormScreen {
 
   $type_IFormScreen: 1 = 1;
+  notifications: IScreenNotification[] = [];
 
   constructor(data: IFormScreenData) {
     Object.assign(this, data);

@@ -464,17 +464,17 @@ namespace Origam.Server
 
                         if (notification.StartsWith("! "))
                         {
-                            fn.Icon = "formAlert1.png";
+                            fn.Icon = "warning";
                             fn.Text = notification.Substring(2);
                         }
                         else if (notification.StartsWith("!! "))
                         {
-                            fn.Icon = "formAlert2.png";
+                            fn.Icon = "error";
                             fn.Text = notification.Substring(3);
                         }
                         else
                         {
-                            fn.Icon = "formAlert0.png";
+                            fn.Icon = "info";
                             fn.Text = notification;
                         }
 

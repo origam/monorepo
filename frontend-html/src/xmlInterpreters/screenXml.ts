@@ -95,6 +95,7 @@ import { getMomentFormat, replaceDefaultDateFormats } from "./getMomentFormat";
 import { getTablePanelView } from "../model/selectors/TablePanelView/getTablePanelView";
 import { isMobileLayoutActive } from "model/selectors/isMobileLayoutActive";
 import { ScreenFocusManager } from "model/entities/ScreenFocusManager";
+import { getWorkbenchLifecycle } from "model/selectors/getWorkbenchLifecycle";
 
 
 function getPropertyParameters(node: any) {
@@ -223,6 +224,7 @@ export function*interpretScreenXml(
   isLazyLoading: boolean
 ) {
   const workbench = getWorkbench(formScreenLifecycle);
+  const workbenchLifeCycle = getWorkbenchLifecycle(formScreenLifecycle);
   const $workbench = scopeFor(workbench);
   const panelConfigurations = new Map<string, IPanelConfiguration>(
     panelConfigurationsRaw.map((pcr: any) => [
@@ -331,7 +333,7 @@ export function*interpretScreenXml(
     // isSessioned: windowXml.attributes.UseSession,
     dataSources: dataSourcesXml.elements.map((dataSource: any) => {
       return new DataSource({
-        rowState: new RowState({}),
+        rowState: new RowState(workbenchLifeCycle.portalSettings?.rowStatesDebouncingDelayMilliseconds),
         entity: dataSource.attributes.Entity,
         dataStructureEntityId: dataSource.attributes.DataStructureEntityId,
         identifier: dataSource.attributes.Identifier,
