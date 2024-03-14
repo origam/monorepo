@@ -1,4 +1,4 @@
 ﻿INSERT INTO [dbo].[BusinessPartner] ([UserName],[Name],[Id]) VALUES ('washi','washi','69aacf26-300e-477b-b9a6-408324ca1cad');
-INSERT INTO [dbo].[OrigamUser] ([UserName],[IsLockedOut],[EmailConfirmed],[refBusinessPartnerId],[Password],[Id],[FailedPasswordAttemptCount],[Is2FAEnforced]) VALUES ('washi',1,1,'69aacf26-300e-477b-b9a6-408324ca1cad','FA000.AJLuD1q172kAPUnyYGQcS4nDiIIq4nnRgnGM4U4Yc/GwAcHA7nMjEAAe21JTicJQUQ==','f0154207-4f49-476d-b955-6f587dd61708',0,0);
+INSERT INTO [dbo].[OrigamUser] ([UserName],[EmailConfirmed],[refBusinessPartnerId],[Password],[Id],[FailedPasswordAttemptCount],[Is2FAEnforced]) VALUES ('washi',1,'69aacf26-300e-477b-b9a6-408324ca1cad','FA000.AJLuD1q172kAPUnyYGQcS4nDiIIq4nnRgnGM4U4Yc/GwAcHA7nMjEAAe21JTicJQUQ==','f0154207-4f49-476d-b955-6f587dd61708',0,0);
 INSERT INTO [dbo].[BusinessPartnerOrigamRole] ([Id],[refBusinessPartnerId],[refOrigamRoleId]) VALUES ('d8130a52-a52c-49bb-b80d-565fa5b9eb21','69aacf26-300e-477b-b9a6-408324ca1cad','E0AD1A0B-3E05-4B97-BE38-12FF63E7F2F2');
 UPDATE [dbo].[OrigamParameters] SET [BooleanValue] = 1 WHERE [Id] = 'e42f864f-5018-4967-abdc-5910439adc9a'

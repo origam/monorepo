@@ -7,6 +7,23 @@
   xmlns:rrmi="http://schemas.origam.com/Origam.Schema.MenuModel.ReportReferenceMenuItem/6.0.0"
   xmlns:s2="http://schemas.origam.com/Origam.Schema.MenuModel.Submenu/6.0.0"
   xmlns:wrmi="http://schemas.origam.com/Origam.Schema.MenuModel.WorkflowReferenceMenuItem/6.0.0">
+  <frmi:MenuItem
+    asi:abstract="false"
+    ami:alwaysOpenNew="false"
+    frmi:autoSaveOnListRecordChange="false"
+    ami:displayName="AllDataTypes_Configuration"
+    x:id="728698cc-b80f-471a-bfb9-8a114d7a1af4"
+    asi:name="AllDataTypes_Configuration"
+    ami:openExclusively="false"
+    ami:order="100"
+    x:parentId="147775f5-451d-4efd-8634-7f27a2cf50a6"
+    frmi:readOnlyAccess="false"
+    frmi:refreshAfterSaveType="RefreshChangedRecords"
+    frmi:refreshOnFocus="false"
+    frmi:refreshPortalAfterSave="false"
+    frmi:requestSaveAfterUpdate="false"
+    ami:roles="*"
+    frmi:screen="Widgets/FormControlSet/Widgets/AllDataTypes_Configuration.origam#AllDataTypes_Configuration/c6c93562-e473-4f1f-a53c-9a029a4e7e54" />
   <rrmi:MenuItem
     asi:abstract="false"
     ami:alwaysOpenNew="false"

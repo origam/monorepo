@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:file
+  xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
+  xmlns:ads="http://schemas.origam.com/Origam.Schema.EntityModel.AbstractDataStructure/6.0.0"
+  xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
+  xmlns:ds1="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructure/6.0.0"
+  xmlns:dsc="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructureColumn/6.0.1"
+  xmlns:dse="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructureEntity/6.0.0">
+  <ds1:DataStructure
+    asi:abstract="false"
+    x:id="d78ea5f4-da41-40f5-a146-6475f1f6f616"
+    ds1:localized="false"
+    asi:name="AllDataTypes_Configuration">
+    <dse:DataStructureEntity
+      asi:abstract="false"
+      dse:allFields="true"
+      dse:concurrencyHandling="Standard"
+      dse:entity="Widgets/DataEntity/Widgets/AllDataTypes.origam#AllDataTypes/7a2338f2-7290-4cec-b0ad-2c0ee6386885"
+      x:id="92c3f635-8a6a-4932-b6b2-ca4978fa5a9f"
+      dse:ignoreCondition="None"
+      dse:ignoreImplicitFilters="false"
+      asi:name="AllDataTypes"
+      dse:relationType="Normal"
+      dse:useUpsert="false">
+      <dsc:DataStructureColumn
+        asi:abstract="false"
+        dsc:aggregation="None"
+        dsc:field="Widgets/DataEntity/Widgets/AllDataTypes.origam#AllDataTypes/refTagInputSourceId/7142586a-1798-4f99-af0a-9166319d11e0"
+        dsc:hideInOutput="false"
+        x:id="7aac40e1-ee1c-4438-948b-1dfdf1a93cab"
+        dsc:lookup="Widgets/DataLookup/Widgets/TagInputSource_Label_GetId.origam#TagInputSource_Label_GetId/991a8bec-5169-4506-9457-7f91c27bb5fd"
+        asi:name="TagInputSourceLabel_DataStructure"
+        dsc:upsertType="Replace"
+        dsc:useCopiedValue="false"
+        dsc:useLookupValue="true"
+        dsc:writeOnly="false"
+        dsc:xmlMappingType="Default" />
+      <dse:DataStructureEntity
+        asi:abstract="false"
+        dse:allFields="true"
+        dse:concurrencyHandling="Standard"
+        dse:entity="Widgets/DataEntity/Widgets/AllDataTypes.origam#AllDataTypes/TagInputBinding/9a7b8c2c-f8a8-4fed-8470-895d2618499a"
+        x:id="28aa3469-6c01-4c03-a643-a4675dbd8b3d"
+        dse:ignoreCondition="None"
+        dse:ignoreImplicitFilters="false"
+        asi:name="TagInputBinding"
+        dse:relationType="Normal"
+        dse:useUpsert="false" />
+    </dse:DataStructureEntity>
+  </ds1:DataStructure>
+</x:file>
