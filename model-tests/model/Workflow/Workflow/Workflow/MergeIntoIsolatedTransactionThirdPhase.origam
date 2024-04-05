@@ -79,7 +79,7 @@
       asi:name="0100_TransactionWrapper"
       aws:onFailure="WorkflowFails"
       aws:roles="*"
-      twb:transactionType="None">
+      twb:transactionType="Atomic">
       <smct:WorkflowTask
         asi:abstract="false"
         x:id="68792050-ef68-476d-b8e3-2945ca4ba281"
