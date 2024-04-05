@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:file
+  xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
+  xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
+  xmlns:awb="http://schemas.origam.com/Origam.Schema.WorkflowModel.AbstractWorkflowBlock/6.0.2"
+  xmlns:aws="http://schemas.origam.com/Origam.Schema.WorkflowModel.AbstractWorkflowStep/6.0.2"
+  xmlns:cr="http://schemas.origam.com/Origam.Schema.WorkflowModel.ContextReference/6.0.0"
+  xmlns:cs="http://schemas.origam.com/Origam.Schema.WorkflowModel.ContextStore/6.0.0"
+  xmlns:dsr="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructureReference/6.0.0"
+  xmlns:smcp="http://schemas.origam.com/Origam.Schema.WorkflowModel.ServiceMethodCallParameter/6.0.0"
+  xmlns:smct="http://schemas.origam.com/Origam.Schema.WorkflowModel.ServiceMethodCallTask/6.0.0"
+  xmlns:tr="http://schemas.origam.com/Origam.Schema.EntityModel.TransformationReference/6.0.0"
+  xmlns:twb="http://schemas.origam.com/Origam.Schema.WorkflowModel.TransactionWorkflowBlock/6.0.0"
+  xmlns:w="http://schemas.origam.com/Origam.Schema.WorkflowModel.Workflow/6.0.2"
+  xmlns:wt="http://schemas.origam.com/Origam.Schema.WorkflowModel.WorkflowTask/6.0.0"
+  xmlns:wtd="http://schemas.origam.com/Origam.Schema.WorkflowModel.WorkflowTaskDependency/6.0.0">
+  <w:Workflow
+    asi:abstract="false"
+    x:id="4f789f41-1a3c-4b24-8380-661a22050026"
+    asi:name="MergeIntoIsolatedTransactionThirdPhase"
+    w:transactionBehavior="Ignore">
+    <cs:ContextStore
+      asi:abstract="false"
+      cs:dataType="Xml"
+      cs:disableConstraints="false"
+      x:id="81e33c73-2a50-409e-a50f-cf8d9a1a1d6f"
+      cs:isReturnValue="false"
+      asi:name="WorkflowMergeTestEntity"
+      cs:structure="Workflow/DataStructure/Workflow/WorkflowMergeTestEntity.origam#WorkflowMergeTestEntity/c3b7bc07-2b1c-4f90-9462-0eec30657075" />
+    <smct:WorkflowTask
+      asi:abstract="false"
+      x:id="5ab8d601-136f-4dc5-81a1-a1a0b54ee8cb"
+      asi:name="0200_Reset"
+      aws:onFailure="WorkflowFails"
+      wt:outputContextStore="Workflow/Workflow/Workflow/MergeIntoIsolatedTransactionThirdPhase.origam#MergeIntoIsolatedTransactionThirdPhase/WorkflowMergeTestEntity/81e33c73-2a50-409e-a50f-cf8d9a1a1d6f"
+      wt:outputMethod="AppendMergeExisting"
+      aws:roles="*"
+      smct:service="Root/Service/DataTransformationService.origam#DataTransformationService/600930a5-102b-43e8-8af1-677c6d7e79f3"
+      smct:serviceMethod="Root/Service/DataTransformationService.origam#DataTransformationService/Transform/a215c2d6-e7aa-4b2f-97d9-03a8d019d4c6">
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="5d2a5d4a-a0e3-4e4e-9908-beb72955cc85"
+        asi:name="Data"
+        smcp:serviceMethodParameter="Root/Service/DataTransformationService.origam#DataTransformationService/Transform/Data/3e94d691-e045-426a-bc79-febc3562fa15">
+        <cr:WorkflowContextReference
+          asi:abstract="false"
+          cr:castToDataType="Xml"
+          cr:contextStore="Workflow/Workflow/Workflow/MergeIntoIsolatedTransactionThirdPhase.origam#MergeIntoIsolatedTransactionThirdPhase/WorkflowMergeTestEntity/81e33c73-2a50-409e-a50f-cf8d9a1a1d6f"
+          x:id="2835b7d0-5e4d-4f96-8e7d-f21119439872"
+          asi:name="WorkflowMergeTestEntity"
+          cr:xPath="/" />
+      </smcp:ServiceMethodCallParameter>
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="6179ebc0-18c8-412d-9876-302dc1c83aaf"
+        asi:name="XslScript"
+        smcp:serviceMethodParameter="Root/Service/DataTransformationService.origam#DataTransformationService/Transform/XslScript/7eecc204-f38e-49fc-8875-fd6b4ba019fd">
+        <tr:TransformationReference
+          asi:abstract="false"
+          x:id="73ee1b24-c81e-46bf-b8a1-1b64852c2f05"
+          asi:name="WorkflowMergeTestThirdPhase_Reset"
+          tr:transformation="Workflow/Transformation/Workflow/WorkflowMergeTestThirdPhase_Reset.origam#WorkflowMergeTestThirdPhase_Reset/b359e5c8-55cd-48f5-835c-681126dd4868" />
+      </smcp:ServiceMethodCallParameter>
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="aab085fd-8a34-43cf-82b1-5996fa14feab"
+        asi:name="Parameters"
+        smcp:serviceMethodParameter="Root/Service/DataTransformationService.origam#DataTransformationService/Transform/Parameters/ce3ebb59-6528-4157-b51a-500f84a635f0" />
+      <wtd:WorkflowTaskDependency
+        asi:abstract="false"
+        x:id="8c0f9236-6f94-40d3-8f38-2bdcbd2b19f7"
+        asi:name="After_0100_TransactionWrapper"
+        wtd:startEvent="Success"
+        wtd:task="Workflow/Workflow/Workflow/MergeIntoIsolatedTransactionThirdPhase.origam#MergeIntoIsolatedTransactionThirdPhase/0100_TransactionWrapper/fec1c148-38cc-4ffe-ac3e-7697fd745855" />
+    </smct:WorkflowTask>
+    <twb:WorkflowTask
+      asi:abstract="false"
+      x:id="fec1c148-38cc-4ffe-ac3e-7697fd745855"
+      asi:name="0100_TransactionWrapper"
+      aws:onFailure="WorkflowFails"
+      aws:roles="*"
+      twb:transactionType="None">
+      <smct:WorkflowTask
+        asi:abstract="false"
+        x:id="68792050-ef68-476d-b8e3-2945ca4ba281"
+        asi:name="0110_Save"
+        aws:onFailure="WorkflowFails"
+        wt:outputContextStore="Workflow/Workflow/Workflow/MergeIntoIsolatedTransactionThirdPhase.origam#MergeIntoIsolatedTransactionThirdPhase/WorkflowMergeTestEntity/81e33c73-2a50-409e-a50f-cf8d9a1a1d6f"
+        wt:outputMethod="AppendMergeExisting"
+        aws:roles="*"
+        smct:service="Root/Service/DataService.origam#DataService/bbd7bd32-d40b-441a-bb5b-0b0fa89169d4"
+        smct:serviceMethod="Root/Service/DataService.origam#DataService/StoreData/3c1c855d-3c06-49e1-bfbf-cf234134d083">
+        <smcp:ServiceMethodCallParameter
+          asi:abstract="false"
+          x:id="1cd50405-01fe-4060-9926-cc84596e747e"
+          asi:name="Data"
+          smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/StoreData/Data/d4d7ec83-a1e8-458e-9900-36562b201ffc">
+          <cr:WorkflowContextReference
+            asi:abstract="false"
+            cr:castToDataType="Xml"
+            cr:contextStore="Workflow/Workflow/Workflow/MergeIntoIsolatedTransactionThirdPhase.origam#MergeIntoIsolatedTransactionThirdPhase/WorkflowMergeTestEntity/81e33c73-2a50-409e-a50f-cf8d9a1a1d6f"
+            x:id="1690cc51-3940-4799-b73c-1a3788554e92"
+            asi:name="WorkflowMergeTestEntity"
+            cr:xPath="/" />
+        </smcp:ServiceMethodCallParameter>
+        <smcp:ServiceMethodCallParameter
+          asi:abstract="false"
+          x:id="9495db44-1442-4b9b-8144-06f690fb305e"
+          asi:name="DataStructure"
+          smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/StoreData/DataStructure/c229b1e0-cb1e-4c79-ad99-488775df3b19">
+          <dsr:DataStructureReference
+            asi:abstract="false"
+            dsr:dataStructure="Workflow/DataStructure/Workflow/WorkflowMergeTestEntity.origam#WorkflowMergeTestEntity/c3b7bc07-2b1c-4f90-9462-0eec30657075"
+            x:id="6feabe77-5347-4501-a868-d6b703e69ce8"
+            asi:name="WorkflowMergeTestEntity" />
+        </smcp:ServiceMethodCallParameter>
+        <smcp:ServiceMethodCallParameter
+          asi:abstract="false"
+          x:id="b5cbf84e-691b-4379-887a-7dd39eda4a2b"
+          asi:name="ForceBulkInsert"
+          smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/StoreData/ForceBulkInsert/010bc65c-5867-41d6-a3f0-8daa9b2377cd" />
+      </smct:WorkflowTask>
+    </twb:WorkflowTask>
+  </w:Workflow>
+</x:file>

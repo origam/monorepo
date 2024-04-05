@@ -12,6 +12,42 @@
     ewa:cleanDataBeforeMerge="false"
     ewa:closeType="CloseAndCommit"
     ewa:commitChangesAfterMerge="false"
+    euia:default="false"
+    x:id="6461c06e-2de4-481b-93a1-5adcf3398904"
+    euia:label="MergeIntoIsolatedTransactionThirdPhase"
+    ewa:mergeType="AppendMergeExisting"
+    euia:modal="false"
+    euia:mode="ActiveRecord"
+    asi:name="MergeIntoIsolatedTransactionThirdPhase"
+    euia:order="10"
+    x:parentId="a9770d71-2ee1-464a-8e17-1fae683edd34"
+    euia:placement="Toolbar"
+    euia:refreshAfterReturn="None"
+    ewa:refreshAfterWorkflow="RefreshChangedRecords"
+    ewa:refreshPortalAfterFinish="false"
+    ewa:requestSaveBeforeWorkflow="false"
+    euia:roles="*"
+    ewa:saveAfterWorkflow="false"
+    euia:valueType="SavedValue"
+    ewa:workflow="Workflow/Workflow/Workflow/MergeIntoIsolatedTransactionThirdPhase.origam#MergeIntoIsolatedTransactionThirdPhase/4f789f41-1a3c-4b24-8380-661a22050026">
+    <euiapm:EntityUIActionParameterMapping
+      asi:abstract="false"
+      euiapm:field="/"
+      x:id="439dbb21-4fe1-4fc2-bb66-e4c466f8b8e0"
+      asi:name="WorkflowMergeTestEntity"
+      euiapm:type="Current" />
+    <sc2:ScreenCondition
+      asi:abstract="false"
+      x:id="be502f68-9337-4ac5-b617-d46896007b9c"
+      asi:name="MergeThroughDifferentEntity"
+      sc2:screen="Workflow/FormControlSet/Workflow/MergeThroughDifferentEntity.origam#MergeThroughDifferentEntity/143feb0a-5dbd-4bfe-b342-9308c6e1322d" />
+  </ewa:EntityUIAction>
+  <ewa:EntityUIAction
+    asi:abstract="false"
+    euia:actionType="Workflow"
+    ewa:cleanDataBeforeMerge="false"
+    ewa:closeType="CloseAndCommit"
+    ewa:commitChangesAfterMerge="false"
     euia:default="true"
     x:id="e6cfd9bb-4da2-45de-8d7a-7a512bd0e2ff"
     euia:label="MergeThroughDifferentEntityThirdPhase"

@@ -83,8 +83,8 @@
         <tr:TransformationReference
           asi:abstract="false"
           x:id="d2229acb-ca3e-47e0-8422-e2435bed4ebc"
-          asi:name="WorkflowMergeTestSecondPhase_Reset"
-          tr:transformation="Workflow/Transformation/Workflow/WorkflowMergeTestSecondPhase_Reset.origam#WorkflowMergeTestSecondPhase_Reset/b359e5c8-55cd-48f5-835c-681126dd4868" />
+          asi:name="WorkflowMergeTestThirdPhase_Reset"
+          tr:transformation="Workflow/Transformation/Workflow/WorkflowMergeTestThirdPhase_Reset.origam#WorkflowMergeTestThirdPhase_Reset/b359e5c8-55cd-48f5-835c-681126dd4868" />
       </smcp:ServiceMethodCallParameter>
       <smcp:ServiceMethodCallParameter
         asi:abstract="false"
