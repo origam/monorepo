@@ -29,7 +29,7 @@ import { getCanvasFontSize, getTextWidth } from "utils/textMeasurement";
 import { DropdownColumnDrivers, DropdownDataTable } from "modules/Editors/DropdownEditor/DropdownTableModel";
 import { BoundingRect } from "react-measure";
 import { IDropdownEditorBehavior } from "modules/Editors/DropdownEditor/DropdownEditorBehavior";
-import { observable } from "mobx";
+import { observable, reaction } from "mobx";
 import { T } from "utils/translation";
 import { CtxDropdownCtrlRect, CtxDropdownRefBody } from "gui/Components/Dropdown/DropdownCommon";
 
@@ -109,9 +109,21 @@ export class DropdownEditorTable extends  React.Component<{
   readonly maxHeight = 8 * this.props.rowHeight;
   disposer: any;
 
+
+  disposeTableSizeRecomputeReaction: any;
   componentDidMount() {
     this.refMultiGrid.current?.recomputeGridSize();
+    this.disposeTableSizeRecomputeReaction = reaction(
+      () => this.rowCount, 
+      () => {
+        this.refMultiGrid.current?.recomputeGridSize();
+      }
+    );
   }
+
+  componentWillUnmount(): void {
+    this.disposeTableSizeRecomputeReaction?.();
+  }  
 
   get rowCount(){
     return this.props.dataTable.rowCount + (this.hasHeader ? 1 : 0);
