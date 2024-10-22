@@ -1,5 +1,5 @@
 curl https://dot.net/v1/dotnet-install.ps1 -O dotnet-install.ps1
-.\dotnet-install.ps1 -Channel 6.0 -Runtime aspnetcore
+.\dotnet-install.ps1 -Channel 8.0 -Runtime aspnetcore
 
 cd c:\home\origam\HTML5
 
