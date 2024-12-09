@@ -661,6 +661,17 @@
   <wrmi:MenuItem
     asi:abstract="false"
     ami:alwaysOpenNew="false"
+    ami:displayName="ForEachTest"
+    x:id="2669ef10-91fa-4389-a981-339fb1c4373b"
+    asi:name="ForEachTest"
+    ami:openExclusively="false"
+    ami:order="100"
+    x:parentId="147775f5-451d-4efd-8634-7f27a2cf50a6"
+    ami:roles="*"
+    wrmi:workflow="Widgets/Workflow/Widgets/ForEachTest.origam#ForEachTest/da6be673-6f54-47ec-9e31-09afaf08a7d1" />
+  <wrmi:MenuItem
+    asi:abstract="false"
+    ami:alwaysOpenNew="false"
     ami:displayName="ParametrizedReportFilename"
     x:id="37723fa7-7a4a-4ebe-97ab-2b10877b3aa7"
     asi:name="ParametrizedReportFilename"

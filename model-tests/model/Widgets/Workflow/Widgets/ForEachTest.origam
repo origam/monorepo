@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<x:file
+  xmlns:x="http://schemas.origam.com/model-persistence/1.0.0"
+  xmlns:asi="http://schemas.origam.com/Origam.Schema.AbstractSchemaItem/6.0.0"
+  xmlns:awb="http://schemas.origam.com/Origam.Schema.WorkflowModel.AbstractWorkflowBlock/6.0.2"
+  xmlns:aws="http://schemas.origam.com/Origam.Schema.WorkflowModel.AbstractWorkflowStep/6.0.2"
+  xmlns:cs="http://schemas.origam.com/Origam.Schema.WorkflowModel.ContextStore/6.0.0"
+  xmlns:dsr="http://schemas.origam.com/Origam.Schema.EntityModel.DataStructureReference/6.0.0"
+  xmlns:fwb="http://schemas.origam.com/Origam.Schema.WorkflowModel.ForeachWorkflowBlock/6.0.0"
+  xmlns:smcp="http://schemas.origam.com/Origam.Schema.WorkflowModel.ServiceMethodCallParameter/6.0.0"
+  xmlns:smct="http://schemas.origam.com/Origam.Schema.WorkflowModel.ServiceMethodCallTask/6.0.0"
+  xmlns:twb="http://schemas.origam.com/Origam.Schema.WorkflowModel.TransactionWorkflowBlock/6.0.0"
+  xmlns:w="http://schemas.origam.com/Origam.Schema.WorkflowModel.Workflow/6.0.2"
+  xmlns:wt="http://schemas.origam.com/Origam.Schema.WorkflowModel.WorkflowTask/6.0.0"
+  xmlns:wtd="http://schemas.origam.com/Origam.Schema.WorkflowModel.WorkflowTaskDependency/6.0.0">
+  <w:Workflow
+    asi:abstract="false"
+    x:id="da6be673-6f54-47ec-9e31-09afaf08a7d1"
+    asi:name="ForEachTest"
+    w:transactionBehavior="InheritExisting">
+    <cs:ContextStore
+      asi:abstract="false"
+      cs:dataType="Xml"
+      cs:disableConstraints="false"
+      x:id="db51a6f2-dbc5-403f-905c-b31193dcf6a8"
+      cs:isReturnValue="false"
+      asi:name="AllDataTypes"
+      cs:structure="Widgets/DataStructure/Widgets/AllDataTypes.origam#AllDataTypes/31791c3b-7265-439e-ac96-ddd57aa82579" />
+    <fwb:WorkflowTask
+      asi:abstract="false"
+      x:id="07b3732a-cb26-466a-931e-63f41f3dc2e8"
+      fwb:ignoreSourceContextChanges="false"
+      fwb:iteratorXPath="''"
+      asi:name="ForEach"
+      aws:onFailure="WorkflowFails"
+      aws:roles="*"
+      fwb:sourceContextStore="Widgets/Workflow/Widgets/ForEachTest.origam#ForEachTest/AllDataTypes/db51a6f2-dbc5-403f-905c-b31193dcf6a8">
+      <twb:WorkflowTask
+        asi:abstract="false"
+        x:id="4624e1a6-0410-4312-9ee3-cf89c8c1bbb1"
+        asi:name="DummyTransform"
+        aws:onFailure="WorkflowFails"
+        aws:roles="*"
+        twb:transactionType="None" />
+      <wtd:WorkflowTaskDependency
+        asi:abstract="false"
+        x:id="918d9bc0-8480-40d0-a5ba-411787eb9e92"
+        asi:name="After_LoadData_AllDataTypes"
+        wtd:startEvent="Success"
+        wtd:task="Widgets/Workflow/Widgets/ForEachTest.origam#ForEachTest/LoadData_AllDataTypes/8ea7a284-47ff-4479-991a-3bc310c5f80f" />
+    </fwb:WorkflowTask>
+    <smct:WorkflowTask
+      asi:abstract="false"
+      x:id="8ea7a284-47ff-4479-991a-3bc310c5f80f"
+      asi:name="LoadData_AllDataTypes"
+      aws:onFailure="WorkflowFails"
+      wt:outputContextStore="Widgets/Workflow/Widgets/ForEachTest.origam#ForEachTest/AllDataTypes/db51a6f2-dbc5-403f-905c-b31193dcf6a8"
+      wt:outputMethod="AppendMergeExisting"
+      aws:roles="*"
+      smct:service="Root/Service/DataService.origam#DataService/bbd7bd32-d40b-441a-bb5b-0b0fa89169d4"
+      smct:serviceMethod="Root/Service/DataService.origam#DataService/LoadData/93a3ced9-fafd-4f38-9467-3af1f72b5d62">
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="31603700-e043-4574-befd-f710ee467449"
+        asi:name="Parameters"
+        smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/LoadData/Parameters/ff27a2ff-5965-4eed-b6dd-9cd040583d03" />
+      <smcp:ServiceMethodCallParameter
+        asi:abstract="false"
+        x:id="9310b43f-ac97-4c91-90ab-2285074ec04f"
+        asi:name="DataStructure"
+        smcp:serviceMethodParameter="Root/Service/DataService.origam#DataService/LoadData/DataStructure/12495b9d-f2b9-4b70-b14c-7cb67784c9f3">
+        <dsr:DataStructureReference
+          asi:abstract="false"
+          dsr:dataStructure="Widgets/DataStructure/Widgets/AllDataTypes.origam#AllDataTypes/31791c3b-7265-439e-ac96-ddd57aa82579"
+          x:id="af009bfa-3ee4-4a0a-9e96-6d53515c830a"
+          asi:name="AllDataTypes" />
+      </smcp:ServiceMethodCallParameter>
+    </smct:WorkflowTask>
+  </w:Workflow>
+</x:file>
