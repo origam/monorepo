@@ -58,6 +58,16 @@ public class WorkflowEngine : IDisposable
 	public bool Trace { get; set; } = false;
 	private readonly OperationTimer localOperationTimer = new();
 	private Exception caughtException;
+	private List<string> disposeCallStackTraces = new List<string>();
+	private object lockObject = new object();
+
+	public string GetDisposeCallStackTraces()
+	{
+		lock (lockObject)
+		{
+			return string.Join("\n", disposeCallStackTraces);
+		}
+	}
 
 	public WorkflowEngine(string transactionId = null)
 	{
@@ -1510,19 +1520,22 @@ public class WorkflowEngine : IDisposable
 
 	public void Dispose()
 	{
-		host = null;
-		callingWorkflow = null;
-		datasetGenerator = null;
-		workflowException = null;
-		inputContexts.Clear();
-		parameterService = null;
-		parentContexts.Clear();
-		persistenceProvider = null;
-		ruleEngine = null;
-		taskResults.Clear();
-		tracingService = null;
-		workflowBlock = null;
+		lock (lockObject)
+		{
+			disposeCallStackTraces.Add(Environment.StackTrace);
+			host = null;
+			callingWorkflow = null;
+			datasetGenerator = null;
+			workflowException = null;
+			inputContexts.Clear();
+			parameterService = null;
+			parentContexts.Clear();
+			persistenceProvider = null;
+			ruleEngine = null;
+			taskResults.Clear();
+			tracingService = null;
+			workflowBlock = null;
+		}
 	}
-
 	#endregion
 }

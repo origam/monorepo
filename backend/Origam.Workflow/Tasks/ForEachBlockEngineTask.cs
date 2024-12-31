@@ -23,6 +23,7 @@ using System;
 using System.Xml;
 using System.Xml.XPath;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using Origam.Rule;
@@ -211,17 +212,45 @@ public class ForEachBlockEngineTask : BlockEngineTask
 			    // Merge data back after success
 			    foreach(DictionaryEntry entry in _call.ParentContexts)
 			    {
-				    if(entry.Key.Equals(block.SourceContextStore.PrimaryKey))
+				    var debugInfo = new Dictionary<string, object>();
+				    try
 				    {
-					    bool fullMerge = (! entry.Key.Equals(block.SourceContextStore.PrimaryKey));
-					    sourceContextChanged = Engine.MergeContext(
-						    (Key)entry.Key,
-						    _call.RuleEngine.GetContext(entry.Key as Key), 
-						    block, 
-						    this.Engine.ContextStoreName((Key)entry.Key), 
-						    (fullMerge ? ServiceOutputMethod.FullMerge : ServiceOutputMethod.AppendMergeExisting));
-					    //					}
+					    debugInfo["entry.Key"] = entry.Key;
+					    if (entry.Key.Equals(
+						        block.SourceContextStore.PrimaryKey))
+					    {
+						    Key castKey = entry.Key as Key;
+						    debugInfo["castKey"] = castKey;
+						    bool fullMerge =
+							    (!entry.Key.Equals(block.SourceContextStore
+								    .PrimaryKey));
+						    debugInfo["fullMerge"] = fullMerge;
+						    object inputContext = _call.RuleEngine.GetContext(castKey);
+						    debugInfo["inputContext"] = inputContext;
+						    string contextStoreName = this.Engine.ContextStoreName(castKey);
+						    debugInfo["contextStoreName"] = contextStoreName;
+
+						    sourceContextChanged = Engine.MergeContext(
+							    castKey,
+							    inputContext,
+							    block,
+							    contextStoreName,
+							    (fullMerge
+								    ? ServiceOutputMethod.FullMerge
+								    : ServiceOutputMethod.AppendMergeExisting));
+						    //					}
+					    }
 				    }
+				    catch (Exception innerEx)
+				    {
+					    log.Error("Exception while processing _call.ParentContexts entry.", innerEx);
+					    foreach (var valuePair in debugInfo)
+					    {
+						    log.Error($"{valuePair.Key} is Null: {valuePair.Value == null}");
+					    }
+					    throw;
+				    }
+
 			    }
 		    }
 		    if(log.IsInfoEnabled)
@@ -282,6 +311,7 @@ public class ForEachBlockEngineTask : BlockEngineTask
         {
             log.Error($"_call.WorkflowUniqueId: {_call.WorkflowUniqueId}");
             log.Error($"_call.RuleEngine is null: {_call.RuleEngine == null}");
+            log.Error($"_call.DisposeCallStackTraces: {_call.GetDisposeCallStackTraces()}");
             if (_call.ParentContexts != null)
             {
                 log.Error($"_call.ParentContexts count: {_call.ParentContexts.Count}");
