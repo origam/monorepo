@@ -264,6 +264,8 @@ public class ForEachBlockEngineTask : BlockEngineTask
         // Log all potentially problematic values here for diagnostic purposes
         log.Error("Exception in Host_WorkflowFinished.", ex);
 
+        log.Error($"ex.Source: {ex.Source}");
+
         // Log state of 'this' and related objects
         log.Error($"this: {this}");
         log.Error($"this.Engine is null: {this.Engine == null}");
