@@ -197,7 +197,9 @@ public class ForEachBlockEngineTask : BlockEngineTask
 {
     try
     {
-	    if(this.Engine == null) return;	// finished already
+	    if(this.Engine == null || e?.Engine == null || _call == null) {
+		    return;	// finished already
+		}
 	    ForeachWorkflowBlock block = this.Step as ForeachWorkflowBlock;
 	    if(e.Engine.WorkflowUniqueId.Equals(_call.WorkflowUniqueId))
 	    {
