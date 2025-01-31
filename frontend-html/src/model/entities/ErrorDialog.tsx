@@ -99,11 +99,6 @@ export class ErrorDialogController implements IErrorDialogController {
         handleLoginValidation() ||
         handleRuntimeException();
 
-      if (errItem.error?.request?.status === 500 || errItem.error?.request?.status === 409) {
-        errorMessage =
-          "Server error occurred. Please check server log for more details:\n" + errorMessage;
-      }
-
       return {
         message: errorMessage,
         id: errItem.id,

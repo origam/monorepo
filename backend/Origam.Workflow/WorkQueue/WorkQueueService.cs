@@ -496,7 +496,7 @@ public class WorkQueueService : IWorkQueueService, IBackgroundService
             // anything else - we execute the workflow in order to get the addresses
             QueryParameterCollection pms = new QueryParameterCollection();
             pms.Add(new QueryParameter("workQueueNotificationContactTypeId", workQueueNotificationContactTypeId));
-            pms.Add(new QueryParameter("origamNotificationChannelTypeId", origamNotificationChannelTypeId));
+            pms.Add(new QueryParameter("OrigamNotificationChannelTypeId", origamNotificationChannelTypeId));
             pms.Add(new QueryParameter("value", value));
             pms.Add(new QueryParameter("context", context));
             if (workQueueRow != null)

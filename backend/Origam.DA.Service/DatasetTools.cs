@@ -963,7 +963,7 @@ public class DatasetTools
 					case OnCopyActionType.PrependCopyText:
 						if(row[col] is string)
 						{
-							row[col] = ResourceUtils.GetString("CopyPrefix") + (string)row[col];
+							row[col] = GetCopiedValue(row, col);
 						}
 						break;
 				}
@@ -978,6 +978,20 @@ public class DatasetTools
 			}
 		}
 	}
+
+	private static string GetCopiedValue(DataRow row, DataColumn col)
+	{
+		string valueWithCopyPrefix = ResourceUtils.GetString("CopyPrefix") + (string)row[col];
+		if (valueWithCopyPrefix.Length > col.MaxLength)
+		{
+			valueWithCopyPrefix = col.MaxLength > 3
+				? valueWithCopyPrefix.Substring(0, col.MaxLength - 3) + "..."
+				: "...".Substring(0, col.MaxLength);
+		}
+
+		return valueWithCopyPrefix;
+	}
+
 	private static void LoadWriteOnlyData(DataRow row)
 	{
 		DataTable table = row.Table;
